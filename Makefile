@@ -22,14 +22,16 @@ build-vim:
 download-linux:
 	echo 'Download vim'
 	wget ftp://ftp.vim.org/pub/vim/unix/${TAR_FILE} -O ${INSTALL_DIR}/${TAR_FILE}
+	echo 'Untar files'
+	cd vim-install; tar xvf ${TAR_FILE}
 
 download-mac:
 	echo 'Download vim'
 	curl ftp://ftp.vim.org/pub/vim/unix/${TAR_FILE} -o ${INSTALL_DIR}/${TAR_FILE}
-
-install:
 	echo 'Untar files'
 	cd vim-install; tar xvzf ${TAR_FILE}
+
+install:
 	echo 'Configure vim'
 	cd ${TEMP_DIR}; \
 		./configure --prefix=${TEMP_DIR}-install --with-features=huge --enable-pythoninterp --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.6/config --enable-cscope --enable-luainterp; \

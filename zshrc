@@ -34,3 +34,7 @@ if [ -d "${DOTFILES}/zshrc-settings" ]; then
 		source $file
 	done
 fi
+
+if [ -f "${HOME}/.zshrc_local" ]; then
+	source ${HOME}/.zshrc_local
+fi

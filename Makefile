@@ -8,9 +8,16 @@ TEMP_DIR=${INSTALL_DIR}/vim${v}
 all:
 	echo 'Choose a target manually please'
 
-linux: | preclean build-vim download-linux install clean
+linux: | preclean build-vim download-linux install clean prepare-zshrc
 
-mac: | preclean build-vim download-mac install clean
+mac: | preclean build-vim download-mac install clean prepare-zshrc
+
+preclean:
+	if [ -d "${INSTALL_DIR}" ]; then rm -r ${INSTALL_DIR}; fi
+
+build-vim:
+	echo 'Create install directory'
+	mkdir -p ${INSTALL_DIR}
 
 download-linux:
 	echo 'Download vim'
@@ -27,13 +34,11 @@ install:
 	cd ${TEMP_DIR}; ./configure --prefix=${TEMP_DIR}-install --with-features=huge --enable-pythoninterp --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.6/config --enable-cscope --enable-luainterp; make; make install
 	echo alias vim='"${TEMP_DIR}-install/bin/vim -u ${HOME}/dotfiles/vimrc"' >> ${INSTALL_DIR}/vim.zsh
 
-build-vim:
-	echo 'Create install directory'
-	mkdir -p ${INSTALL_DIR}
-
-preclean:
-	if [ -d "${INSTALL_DIR}" ]; then rm -r ${INSTALL_DIR}; fi
-
 clean:
 	rm ${INSTALL_DIR}/${TAR_FILE}
 	rm -r ${TEMP_DIR}
+
+prepare-zshrc:
+	if [ -d "${HOME}/.zshrc" ]; then mv ${HOME}/.zshrc ${HOME}/.zshrc_before_dotfile_change;fi
+	mv ${HOME}/dotfiles/zshrc ${HOME}/.zshrc
+	source ${HOME}/.zshrc

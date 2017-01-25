@@ -21,7 +21,7 @@ build-vim:
 
 download-linux:
 	echo 'Download vim'
-	wget ftp://ftp.vim.org/pub/vim/unix/${TAR_FILE} ${INSTALL_DIR}/${TAR_FILE}
+	wget ftp://ftp.vim.org/pub/vim/unix/${TAR_FILE} -O ${INSTALL_DIR}/${TAR_FILE}
 
 download-mac:
 	echo 'Download vim'

@@ -14,4 +14,14 @@ zsh-syntax-highlighting
 )
 
 # Oh my zsh settings
-source $ZSH'/oh-my-zsh.sh'
+echo "source $ZSH/oh-my-zsh.sh"
+source $ZSH/oh-my-zsh.sh
+
+# Load vim alias
+if [ -d "${DOTFILES}/vim-install" ]; then
+	for file in ${DOTFILES}/vim-install/*.zsh
+	do
+		echo "source ${file}"
+		source $file
+	done
+fi

@@ -19,6 +19,8 @@ Plugin 'https://github.com/vim-syntastic/syntastic.git'
 Plugin 'https://github.com/tpope/vim-surround.git'
 " Hardcore mode
 Plugin 'https://github.com/wikitopian/hardmode.git'
+" Wakatime
+Plugin 'https://github.com/wakatime/vim-wakatime.git'
 
 call vundle#end()
 
@@ -95,3 +97,4 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+

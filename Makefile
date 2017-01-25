@@ -5,6 +5,9 @@ TAR_FILE=vim-${V}.tar.bz2
 INSTALL_DIR=${HOME}/dotfiles/vim-install
 TEMP_DIR=${INSTALL_DIR}/vim${v}
 
+all:
+	echo 'Choose a target manually please'
+
 linux: | preclean build-vim download-linux install clean
 
 mac: | preclean build-vim download-mac install clean
@@ -22,7 +25,7 @@ install:
 	cd vim-install; tar xvzf ${TAR_FILE}
 	echo 'Configure vim'
 	cd ${TEMP_DIR}; ./configure --prefix=${TEMP_DIR}-install --with-features=huge --enable-pythoninterp --enable-rubyinterp --with-python-config-dir=/usr/lib/python2.6/config --enable-cscope --enable-luainterp; make; make install
-	echo alias vim="${TEMP_DIR}-install/bin/vim" >> ${INSTALL_DIR}/vim.zsh
+	echo alias vim='"${TEMP_DIR}-install/bin/vim -u ${HOME}/dotfiles/vimrc"' >> ${INSTALL_DIR}/vim.zsh
 
 build-vim:
 	echo 'Create install directory'

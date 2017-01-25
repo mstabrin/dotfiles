@@ -54,6 +54,8 @@ set relativenumber
 set number
 " syntax highlighting
 syntax on
+" encoding
+set encoding=utf-8
 " show the command in bottom line
 set showcmd
 " Highlight current line
@@ -66,8 +68,6 @@ hi SpecialKey ctermfg=59
 hi NonText ctermfg=59
 " redraw only when we need to.
 set lazyredraw
-" encoding
-set encoding=utf-8
 " file format
 set fileformat=unix
 " Bar hinting for 80 chars

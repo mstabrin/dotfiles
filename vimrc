@@ -9,10 +9,16 @@ set rtp+=${DOTFILES}/vim-plugin/Vundle.vim
 call vundle#begin('$DOTFILES/vim-plugin')
 " Handle Vundle
 Plugin 'VundleVim/Vundle.vim'
+" Nerdtree
 Plugin 'https://github.com/scrooloose/nerdtree.git'
+" Fugitive for git commands
 Plugin 'https://github.com/tpope/vim-fugitive.git'
+" Syntax highlighting
 Plugin 'https://github.com/vim-syntastic/syntastic.git'
+" Surround vim
 Plugin 'https://github.com/tpope/vim-surround.git'
+" Hardcore mode
+Plugin 'https://github.com/wikitopian/hardmode.git'
 
 call vundle#end()
 

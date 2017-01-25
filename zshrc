@@ -25,3 +25,12 @@ if [ -d "${DOTFILES}/vim-install" ]; then
 		source $file
 	done
 fi
+
+# Load zsh related settings
+if [ -d "${DOTFILES}/zshrc-settings" ]; then
+	for file in ${DOTFILES}/zshrc-settings/*.zsh
+	do
+		echo "source ${file}"
+		source $file
+	done
+fi

@@ -24,6 +24,9 @@ call vundle#end()
 
 """""""""""""""" syntax and indent
 
+" Use colorscheme
+colorscheme peachpuff
+
 " load filetype-specific indent files
 filetype plugin indent on 
 " Enable syntax

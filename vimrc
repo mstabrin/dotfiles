@@ -21,6 +21,8 @@ Plugin 'https://github.com/tpope/vim-surround.git'
 Plugin 'https://github.com/wikitopian/hardmode.git'
 " Wakatime
 Plugin 'https://github.com/wakatime/vim-wakatime.git'
+" Indent guides
+Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
 
 call vundle#end()
 
@@ -58,14 +60,13 @@ syntax on
 set encoding=utf-8
 " show the command in bottom line
 set showcmd
-" Highlight current line
-set cursorline
 " list whitespaces and some other characters
 set listchars=tab:>-,space:·,eol:✂︎
 set list
 " Color for special keys
 hi SpecialKey ctermfg=59
 hi NonText ctermfg=59
+hi CursorLineNr ctermbg=59 ctermfg=white
 " redraw only when we need to.
 set lazyredraw
 " file format
@@ -98,3 +99,11 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+"""""""""""""""" Vim indent guide
+set ts=4 sw=4 et
+let g:indent_guides_start_level = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_enable_on_vim_startup = 1
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=grey   ctermbg=grey
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=darkgrey

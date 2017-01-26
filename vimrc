@@ -23,6 +23,8 @@ Plugin 'https://github.com/wikitopian/hardmode.git'
 Plugin 'https://github.com/wakatime/vim-wakatime.git'
 " Indent guides
 Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
+" Image support
+Plugin 'https://github.com/ashisha/image.vim.git'
 
 call vundle#end()
 

@@ -25,6 +25,8 @@ Plugin 'https://github.com/wakatime/vim-wakatime.git'
 Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
 " Image support
 Plugin 'https://github.com/ashisha/image.vim.git'
+" Nice looking tables
+Plugin 'https://github.com/dhruvasagar/vim-table-mode.git'
 
 call vundle#end()
 
@@ -83,6 +85,19 @@ set path=**
 " visual autocomplete for command menu
 set wildmenu
 
+set statusline=
+set statusline+=%7*\[%n]                                  "buffernr
+set statusline+=%1*\ %<%F\                                "File+path
+set statusline+=%2*\ %y\                                  "FileType
+set statusline+=%3*\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
+set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
+set statusline+=%4*\ %{&ff}\                              "FileFormat (dos/unix..) 
+set statusline+=%8*\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
+set statusline+=%9*\ col:%03c\                            "Colnr
+set statusline+=%0*\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
+
+"""""""""""""""" Remap keys
+
 """"""""""""""" Nerdtree
 
 " Open nerd tree when vim starts up
@@ -109,3 +124,7 @@ let g:indent_guides_auto_colors = 0
 let g:indent_guides_enable_on_vim_startup = 1
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=grey   ctermbg=grey
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=darkgrey
+
+""""""""""""""" Vim table
+"Markdown table mode
+let g:table_mode_corner="|"

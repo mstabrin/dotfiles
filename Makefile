@@ -51,6 +51,7 @@ install-vim:
 		./configure --prefix=${VIM_TEMP_DIR}-install --with-features=huge --enable-rubyinterp --enable-python3interp --with-python3-config-dir=${MINICONDA_INSTALL_DIR}/lib/python3.5/config-3.5m --enable-cscope --enable-luainterp; \
 		make; \
 		make install
+	echo alias oldvim=vim >> ${VIM_INSTALL_DIR}/vim.zsh
 	echo alias vim='"${VIM_TEMP_DIR}-install/bin/vim -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
 	cd ${VIM_TEMP_DIR}; \
 		./configure --prefix=${VIM_TEMP_DIR_2}-install --with-features=huge --enable-rubyinterp --enable-pythoninterp --with-python-config-dir=${MINICONDA_INSTALL_DIR}/envs/python2/lib/python2.7/config --enable-cscope --enable-luainterp; \
@@ -67,7 +68,7 @@ download-miniconda-mac:
 	curl https://repo.continuum.io/miniconda/${MINICONDA_SH_FILE_MAC} -o ${MINICONDA_TEMP}/${MINICONDA_SH_FILE_OUT}
 
 install-miniconda:
-	sh ${MINICONDA_TEMP}/${MINICONDA_SH_FILE_OUT} -b -p ${MINICONDA_INSTALL_DIR}
+	bash ${MINICONDA_TEMP}/${MINICONDA_SH_FILE_OUT} -b -p ${MINICONDA_INSTALL_DIR}
 	echo export PATH="${MINICONDA_INSTALL_DIR}/bin" >> ${ZSHRC_OPTIONS}/${MINICONDA_ZSHRC}
 	${MINICONDA_INSTALL_DIR}/bin/conda env create -f ${MINICONDA_ENV}/python2.yml
 

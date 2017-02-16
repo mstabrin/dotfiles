@@ -48,6 +48,8 @@ set shiftwidth=4
 " enable folding
 set foldmethod=indent
 set foldlevel=99
+" Edit previous text and over linebreaks
+set backspace=indent,eol,start
 
 """""""""""""""" Vim Look and Feel
 

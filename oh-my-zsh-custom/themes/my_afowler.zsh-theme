@@ -60,6 +60,7 @@ local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
 NEWLINE=$'\n'
 PROMPT='%n@%m %{${fg_bold[blue]}%}:: %{$reset_color%}%{${fg[green]}%}%7~ $(prompt_git)${NEWLINE}%{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%} '
+OLD_PROMPT=${PROMPT}
 
 RPS1="${return_code}"
 

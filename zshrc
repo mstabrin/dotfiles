@@ -6,12 +6,21 @@ export ZSH=${DOTFILES}/oh-my-zsh
 ZSH_THEME="my_afowler"
 ZSH_CUSTOM=${DOTFILES}/oh-my-zsh-custom
 
-plugins=(
-git
-sudo
-osx
-zsh-syntax-highlighting
-)
+if [[ ${HOSTNAME} =~ 'dn[0-9][0-9]' ]]; then
+    plugins=(
+    git
+    sudo
+    osx
+    )
+else
+    plugins=(
+    git
+    sudo
+    osx
+    zsh-syntax-highlighting
+    )
+fi
+
 
 # Oh my zsh settings
 echo "source $ZSH/oh-my-zsh.sh"

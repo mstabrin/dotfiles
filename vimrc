@@ -133,9 +133,19 @@ let g:table_mode_corner="|"
 
 """""""""""""" Align lines with the visual mode command \al
 fun! AlignStuff(replace_string, arg) "{{{
-    echo a:replace_string a:arg
     echo "'<,'>s/".a:arg."/".a:replace_string.a:arg."/g | '<,'>!column -t -s '".a:replace_string."'"
     execute "'<,'>s/".a:arg."/".a:replace_string.a:arg."/g | '<,'>!column -t -s '".a:replace_string."'"
 endfunction "}}}
 command! -nargs=* Align call AlignStuff(<f-args>)
 vmap \al :<BS><BS><BS><BS><BS>Align \| 
+
+""""""""""""" Increment visual selected Text
+fun! Incr()
+    let a = line('.') - line("'<")
+    let c = virtcol("'<")
+    if a > 0
+        execute 'normal! '.c.'|'.a."\<C-a>"
+    endif
+    normal `<
+endfunction
+vmap \inc :call Incr()<CR>

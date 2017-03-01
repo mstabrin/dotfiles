@@ -130,3 +130,12 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=darkg
 """"""""""""""" Vim table
 "Markdown table mode
 let g:table_mode_corner="|"
+
+"""""""""""""" Align lines with the visual mode command \al
+fun! AlignStuff(replace_string, arg) "{{{
+    echo a:replace_string a:arg
+    echo "'<,'>s/".a:arg."/".a:replace_string.a:arg."/g | '<,'>!column -t -s '".a:replace_string."'"
+    execute "'<,'>s/".a:arg."/".a:replace_string.a:arg."/g | '<,'>!column -t -s '".a:replace_string."'"
+endfunction "}}}
+command! -nargs=* Align call AlignStuff(<f-args>)
+vmap \al :<BS><BS><BS><BS><BS>Align \| 

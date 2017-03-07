@@ -25,6 +25,8 @@ Plugin 'https://github.com/wakatime/vim-wakatime.git'
 Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
 " Nice looking tables
 Plugin 'https://github.com/dhruvasagar/vim-table-mode.git'
+" Smooth scrolling
+Plugin 'https://github.com/cskeeters/vim-smooth-scroll.git'
 
 call vundle#end()
 

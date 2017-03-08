@@ -35,6 +35,7 @@ if [[ ${do_update} == 0 ]]; then
         echo 'Update available! Do you want to update? [y/n]'
         if [[ $input == 'y' ]]; then
             git pull
+            vim +PluginInstall +qall
         else
             echo 'Skip update'
         fi

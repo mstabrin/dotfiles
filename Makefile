@@ -92,7 +92,7 @@ move-zshrc:
 	if [ -f ${HOME}/.zshrc ]; then \
 		mv ${HOME}/.zshrc ${HOME}/.zshrc_before_dotfile_change; \
 	fi
-	cp ${HOME}/dotfiles/zshrc ${HOME}/.zshrc
+	cp ${HOME}/dotfiles/copy_this.zshrc ${HOME}/.zshrc
 
 undo-zshrc:
 	if [ -f "${HOME}/.zshrc_before_dotfile_change" ]; then \

@@ -31,39 +31,40 @@ fi
 # If successful check for updates, else dont
 if [[ ${do_update} == 0 ]]; then
     git fetch --dry-run > update.logfile 2>&1
+    # Check if you need to update
+    do_stat=false
+    do_gstat=false
+
     stat -c%s update.logfile > /dev/null 2>&1
     if [[ $? == 0 ]]; then
-        if [[ $(stat -c%s update.logfile) > 4 ]]; then
-            echo 'Update available! Do you want to update? [y/n]'
-            read input
-            if [[ $input == 'y' ]]; then
-                git pull
-                git submodule update
-                vim +PluginInstall +qall
-            else
-                echo 'Skip update'
-            fi
+        do_stat=true
+    fi
+
+    gstat -c%s update.logfile > /dev/null 2>&1
+    if [[ $? == 0 ]]; then
+        do_gstat=true
+    fi
+
+    if [[ do_stat = true ]]; then
+        size=$(stat -c%s update.logfile)
+    elif [[ do_gstat = true ]]; then
+        size=$(gstat -c%s update.logfile)
+    else
+        size=0
+    fi
+
+    if [[ ${size} > 4 ]]; then
+        echo 'Update available! Do you want to update? [y/n]'
+        read input
+        if [[ $input == 'y' ]]; then
+            git pull
+            git submodule update
+            vim +PluginInstall +qall
         else
-            echo 'No update available'
+            echo 'Skip update'
         fi
     else
-        gstat -c%s update.logfile > /dev/null 2>&1
-        if [[ $? == 0 ]]; then
-            if [[ $(gstat -c%s update.logfile) > 4 ]]; then
-                echo 'Update available! Do you want to update? [y/n]'
-                read input
-                if [[ $input == 'y' ]]; then
-                    git pull
-                    vim +PluginInstall +qall
-                else
-                    echo 'Skip update'
-                fi
-            else
-                echo 'No update available'
-            fi
-        else
-            echo 'Update failed!'
-        fi
+        echo 'No update available'
     fi
 else
     echo 'Update failed!'

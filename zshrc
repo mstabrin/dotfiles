@@ -35,6 +35,7 @@ if [[ ${do_update} == 0 ]]; then
     if [[ $? == 0 ]]; then
         if [[ $(stat -c%s update.logfile) > 4 ]]; then
             echo 'Update available! Do you want to update? [y/n]'
+            read input
             if [[ $input == 'y' ]]; then
                 git pull
                 git submodule update

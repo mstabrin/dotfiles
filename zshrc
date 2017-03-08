@@ -31,21 +31,42 @@ fi
 # If successful check for updates, else dont
 if [[ ${do_update} == 0 ]]; then
     git fetch --dry-run > update.logfile 2>&1
-    if [[ $(stat -c%s update.logfile) > 4 ]]; then
-        echo 'Update available! Do you want to update? [y/n]'
-        if [[ $input == 'y' ]]; then
-            git pull
-            vim +PluginInstall +qall
+    stat -c%s update.logfile > /dev/null 2>&1
+    if [[ $? == 0 ]]; then
+        if [[ $(stat -c%s update.logfile) > 4 ]]; then
+            echo 'Update available! Do you want to update? [y/n]'
+            if [[ $input == 'y' ]]; then
+                git pull
+                vim +PluginInstall +qall
+            else
+                echo 'Skip update'
+            fi
         else
-            echo 'Skip update'
+            echo 'No update available'
         fi
     else
-        echo 'No update available'
+        gstat -c%s update.logfile > /dev/null 2>&1
+        if [[ $? == 0 ]]; then
+            if [[ $(gstat -c%s update.logfile) > 4 ]]; then
+                echo 'Update available! Do you want to update? [y/n]'
+                read input
+                if [[ $input == 'y' ]]; then
+                    git pull
+                    vim +PluginInstall +qall
+                else
+                    echo 'Skip update'
+                fi
+            else
+                echo 'No update available'
+            fi
+        else
+            echo 'Update failed!'
+        fi
     fi
-    rm update.logfile
 else
     echo 'Update failed!'
 fi
+rm update.logfile > /dev/null 2>&1
 cd ${CURRENT_DIRECTORY}
 
 # Layout oh my zsh paths

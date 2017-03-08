@@ -3,35 +3,47 @@ export DOTFILES=${HOME}/dotfiles
 export ZSH=${DOTFILES}/oh-my-zsh
 CURRENT_DIRECTORY=${PWD}
 
+
 # Check for updates
-echo -Check for dotfile updates-
+echo '-Check for dotfile updates-'
 cd ${DOTFILES}
 
 # Check if the timout command exists
-timeout 3 sleep 0.5 > /dev/null
-if [[ $? == 0 ]]; then
+timeout 1 sleep 0.1 > /dev/null 2>&1
+do_update=$?
+if [[ ${do_update} == 0 ]]; then
+    # Use timeout
     timeout 3 wget -qO /dev/null --no-check-certificate 'https://github.com/'
-    if [[ $? == 0 ]]; then
-        echo 'Do update...'
-        git pull
-    else
-        echo "Update failed! Maybe Github is not available!"
-    fi
+    do_update=$?
 else
-    # Check if the timout command exists
-    echo 'timeout command not found... search for gtimeout'
-    gtimeout 3 sleep 0.5> /dev/null
-    if [[ $? == 0 ]]; then
+    # Check if the gtimout command exists
+    gtimeout 1 sleep 0.1 > /dev/null 2>&1
+    do_update=$?
+    if [[ ${do_update} == 0 ]]; then
+        # Use timeout
         gtimeout 3 curl -so /dev/null 'https://github.com/'
-        if [[ $? == 0 ]]; then
-            echo 'Do update...'
+        do_update=$?
+    else
+        echo 'Update failed! No timeout or gtimeout command found!'
+    fi
+fi
+
+# If successful check for updates, else dont
+if [[ ${do_update} == 0 ]]; then
+    git fetch --dry-run > update.logfile 2>&1
+    if [[ $(stat -c%s update.logfile) > 4 ]]; then
+        echo 'Update available! Do you want to update? [y/n]'
+        if [[ $input == 'y' ]]; then
             git pull
         else
-            echo "Update failed! Maybe Github is not available!"
+            echo 'Skip update'
         fi
     else
-        echo "Update failed! No timeout or gtimeout command found!"
+        echo 'No update available'
     fi
+    rm update.logfile
+else
+    echo 'Update failed!'
 fi
 cd ${CURRENT_DIRECTORY}
 
@@ -79,3 +91,4 @@ fi
 if [ -f "${HOME}/.zshrc_local" ]; then
 	source ${HOME}/.zshrc_local
 fi
+

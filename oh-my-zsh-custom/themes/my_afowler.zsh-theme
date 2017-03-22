@@ -28,7 +28,7 @@ prompt_git() {
     dirty=$(parse_git_dirty)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="↪︎ $(git rev-parse --short HEAD 2> /dev/null)"
     if [[ -n $dirty ]]; then
-      prompt_segment transparent yellow
+      prompt_segment transparent red
     else
       prompt_segment transparent cyan
     fi
@@ -59,7 +59,7 @@ prompt_git() {
 local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
 NEWLINE=$'\n'
-PROMPT='%{${fg_bold[blue]}%}%n%{$reset_color%}@%{${fg_bold[black]}%}%m %{${fg_bold[blue]}%}:: %{$reset_color%}%{${fg[green]}%}%7~ $(prompt_git)${NEWLINE}%{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%} '
+PROMPT='%{${fg[cyan]}%}%n%{$reset_color%}@%{${fg[green]}%}%m %{${fg_bold[blue]}%}:: %{$reset_color%}%{${fg[yellow]}%}%7~ $(prompt_git)${NEWLINE}%{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%} '
 OLD_PROMPT=${PROMPT}
 
 RPS1="${return_code}"

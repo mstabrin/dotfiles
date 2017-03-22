@@ -36,14 +36,12 @@ else
 fi
 
 # Oh my zsh settings
-echo "source $ZSH/oh-my-zsh.sh"
 source $ZSH/oh-my-zsh.sh
 
 # Load vim alias
 if [ -d "${DOTFILES}/vim-install" ]; then
 	for file in ${DOTFILES}/vim-install/*.zsh
 	do
-		echo "source ${file}"
 		source $file
 	done
 fi
@@ -52,7 +50,6 @@ fi
 if [ -d "${DOTFILES}/zshrc-settings" ]; then
 	for file in ${DOTFILES}/zshrc-settings/*.zsh
 	do
-		echo "source ${file}"
 		source $file
 	done
 fi

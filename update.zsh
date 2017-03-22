@@ -36,17 +36,19 @@ if [[ ${do_update} == 0 ]]; then
     stat -c%s update.logfile > /dev/null 2>&1
     if [[ $? == 0 ]]; then
         do_stat=true
+        do_gstat=false
     fi
 
     gstat -c%s update.logfile > /dev/null 2>&1
     if [[ $? == 0 ]]; then
+        do_stat=false
         do_gstat=true
     fi
 
-    if [[ do_stat = true ]]; then
-        size=$(stat -c%s update.logfile)
-    elif [[ do_gstat = true ]]; then
-        size=$(gstat -c%s update.logfile)
+    if [[ $do_stat = true ]]; then
+        size=$(stat -c%s ${DOTFILES}/update.logfile)
+    elif [[ $do_gstat = true ]]; then
+        size=$(gstat -c%s ${DOTFILES}/update.logfile)
     else
         size=0
     fi

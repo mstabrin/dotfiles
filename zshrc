@@ -3,74 +3,18 @@ export DOTFILES=${HOME}/dotfiles
 export ZSH=${DOTFILES}/oh-my-zsh
 CURRENT_DIRECTORY=${PWD}
 
-
 # Check for updates
-echo '-Check for dotfile updates-'
-cd ${DOTFILES}
-
-# Check if the timout command exists
-timeout 1 sleep 0.1 > /dev/null 2>&1
-do_update=$?
-if [[ ${do_update} == 0 ]]; then
-    # Use timeout
-    timeout 3 wget -qO /dev/null --no-check-certificate 'https://github.com/'
-    do_update=$?
-else
-    # Check if the gtimout command exists
-    gtimeout 1 sleep 0.1 > /dev/null 2>&1
-    do_update=$?
-    if [[ ${do_update} == 0 ]]; then
-        # Use timeout
-        gtimeout 3 curl -so /dev/null 'https://github.com/'
-        do_update=$?
+update_count=$(cat ${DOTFILES}/.update_counter)
+if [[ $(($update_count % 100)) == 0 ]]; then
+    echo 'You did not check for updates for several logins: Do you want to check for updates? [y/n]: '
+    read input
+    if [[ $input == 'y' ]]; then
+        source ${DOTFILES}/update.zsh
     else
-        echo 'Update failed! No timeout or gtimeout command found!'
+        echo 'Skip update'
     fi
 fi
-
-# If successful check for updates, else dont
-if [[ ${do_update} == 0 ]]; then
-    git fetch --dry-run > update.logfile 2>&1
-    # Check if you need to update
-    do_stat=false
-    do_gstat=false
-
-    stat -c%s update.logfile > /dev/null 2>&1
-    if [[ $? == 0 ]]; then
-        do_stat=true
-    fi
-
-    gstat -c%s update.logfile > /dev/null 2>&1
-    if [[ $? == 0 ]]; then
-        do_gstat=true
-    fi
-
-    if [[ do_stat = true ]]; then
-        size=$(stat -c%s update.logfile)
-    elif [[ do_gstat = true ]]; then
-        size=$(gstat -c%s update.logfile)
-    else
-        size=0
-    fi
-
-    if [[ ${size} > 4 ]]; then
-        echo 'Update available! Do you want to update? [y/n]'
-        read input
-        if [[ $input == 'y' ]]; then
-            git pull
-            git submodule update
-            vim +PluginInstall +qall
-        else
-            echo 'Skip update'
-        fi
-    else
-        echo 'No update available'
-    fi
-else
-    echo 'Update failed!'
-fi
-rm update.logfile > /dev/null 2>&1
-cd ${CURRENT_DIRECTORY}
+echo $(($update_count+1)) > ${DOTFILES}/.update_counter
 
 # Layout oh my zsh paths
 ZSH_THEME="my_afowler"

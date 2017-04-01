@@ -5,7 +5,7 @@ CURRENT_DIRECTORY=${PWD}
 
 # Check for updates
 update_count=$(cat ${DOTFILES}/.update_counter)
-if [[ $(($update_count % 100)) == 0 ]]; then
+if [[ $(($update_count % 20)) == 0 ]]; then
     echo 'You did not check for updates for several logins: Do you want to check for updates? [y/n]: '
     read input
     if [[ $input == 'y' ]]; then

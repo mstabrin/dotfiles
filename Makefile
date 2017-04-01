@@ -18,28 +18,41 @@ ZSHRC_OPTIONS=${HOME}/dotfiles/zshrc-settings
 all:
 	echo 'Choose a target manually please'
 
-linux: | preclean build-directorys download-miniconda-linux install-miniconda clean-miniconda download-vim-linux install-vim clean-vim move-zshrc
+linux:
+	${MAKE} run OS=linux
 
-mac: | preclean build-directorys download-miniconda-mac install-miniconda clean-miniconda download-vim-mac install-vim clean-vim move-zshrc
+mac:
+	${MAKE} run OS=mac
+
+run:
+	${MAKE} download-miniconda-${OS} OS=${OS}
+	${MAKE} install-miniconda OS=${OS}
+	${MAKE} clean-miniconda OS=${OS}
+	${MAKE} download-vim-${OS} OS=${OS}
+	${MAKE} install-vim OS=${OS}
+	${MAKE} clean-vim OS=${OS}
+	${MAKE} write-vim-zsh OS=${OS}
+	${MAKE} move-zshrc OS=${OS}
+	@echo 'All done'
 
 preclean:
 	if [ -d "${VIM_INSTALL_DIR}" ]; then rm -r ${VIM_INSTALL_DIR}; fi
 	if [ -d "${MINICONDA_INSTALL_DIR}" ]; then rm -r ${MINICONDA_INSTALL_DIR}; fi
 	if [ -e "${MINICONDA_TEMP}/${MINICONDA_ZSHRC}" ]; then rm ${MINICONDA_TEMP}/${MINICONDA_ZSHRC}; fi
 
-build-directorys:
+build-directorys: | preclean
 	echo 'Create vim install directory'
 	mkdir -p ${VIM_INSTALL_DIR}
 	mkdir -p ${VIM_TEMP_DIR}
 	mkdir -p ${VIM_TEMP_DIR_2}
 
-download-vim-linux:
+download-vim-linux: | build-directorys
 	echo 'Download vim'
 	wget ftp://ftp.vim.org/pub/vim/unix/${VIM_TAR_FILE} -O ${VIM_INSTALL_DIR}/${VIM_TAR_FILE}
 	echo 'Untar files'
 	cd ${VIM_INSTALL_DIR}; tar xvf ${VIM_TAR_FILE}
 
-download-vim-mac:
+download-vim-mac: | build-directorys
 	echo 'Download vim'
 	curl ftp://ftp.vim.org/pub/vim/unix/${VIM_TAR_FILE} -o ${VIM_INSTALL_DIR}/${VIM_TAR_FILE}
 	echo 'Untar files'
@@ -54,21 +67,33 @@ install-vim:
 		make; \
 		make install; \
 		export PATH=${OLD_PATH}
-	echo alias oldvim=vim >> ${VIM_INSTALL_DIR}/vim.zsh
-	echo alias vim='"${VIM_TEMP_DIR}-install/bin/vim -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
 	cd ${VIM_TEMP_DIR}; \
 		export PATH=${MINICONDA_INSTALL_DIR}/envs/python2.7/bin:${PATH}; \
 		./configure --prefix=${VIM_TEMP_DIR_2}-install --with-features=huge --enable-rubyinterp --enable-pythoninterp --with-python-config-dir=${MINICONDA_INSTALL_DIR}/envs/python2/lib/python2.7/config --enable-cscope --enable-luainterp; \
 		make; \
 		make install; \
 		export PATH=${OLD_PATH}
-	echo alias vim2='"${VIM_TEMP_DIR_2}-install/bin/vim -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
 
-download-miniconda-linux:
+write-vim-zsh:
+	echo alias oldvim=vim >> ${VIM_INSTALL_DIR}/vim.zsh
+	echo alias vim='"${VIM_TEMP_DIR}-install/bin/vim -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
+	echo alias vimdiff='"${VIM_TEMP_DIR}-install/bin/vimdiff -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
+	echo alias rvim='"${VIM_TEMP_DIR}-install/bin/rvim -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
+	echo alias vimtutor='"${VIM_TEMP_DIR}-install/bin/vimtutor -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
+	echo alias view='"${VIM_TEMP_DIR}-install/bin/view -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
+	echo alias rview='"${VIM_TEMP_DIR}-install/bin/rview -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
+	echo alias vim2='"${VIM_TEMP_DIR_2}-install/bin/vim -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
+	echo alias vimdiff2='"${VIM_TEMP_DIR_2}-install/bin/vimdiff -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
+	echo alias rvim2='"${VIM_TEMP_DIR_2}-install/bin/rvim -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
+	echo alias vimtutor2='"${VIM_TEMP_DIR_2}-install/bin/vimtutor -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
+	echo alias view2='"${VIM_TEMP_DIR_2}-install/bin/view -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
+	echo alias rview2='"${VIM_TEMP_DIR_2}-install/bin/rview -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
+
+download-miniconda-linux: | preclean
 	echo 'Download miniconda'
 	wget https://repo.continuum.io/miniconda/${MINICONDA_SH_FILE_LINUX} -O ${MINICONDA_TEMP}/${MINICONDA_SH_FILE_OUT}
 
-download-miniconda-mac:
+download-miniconda-mac: | preclean
 	echo 'Download miniconda'
 	curl https://repo.continuum.io/miniconda/${MINICONDA_SH_FILE_MAC} -o ${MINICONDA_TEMP}/${MINICONDA_SH_FILE_OUT}
 

@@ -28,7 +28,7 @@ fi
 
 # If successful check for updates, else dont
 if [[ ${do_update} == 0 ]]; then
-    git fetch --dry-run > update.logfile 2>&1
+    git fetch --dry-run 1> update.logfile 2>/dev/null
     # Check if you need to update
     do_stat=false
     do_gstat=false

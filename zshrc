@@ -14,16 +14,8 @@ if [[ ! -n ${UPDATE_ENV} ]]; then
 
     # Write current environment
     source ${DOTFILES}/write_env.zsh
-    FILE_TO_SOURCE=${DEFAULT_SOURCE}
 else
     source ${DOTFILES}/reset_env.zsh
-    # If CURRENT_SOURCE, source it
-    if [[ ${CURRENT_SOURCE} ]]; then
-        # Change environment
-        FILE_TO_SOURCE=${CURRENT_SOURCE}
-    else
-        FILE_TO_SOURCE=${DEFAULT_SOURCE}
-    fi
 fi
 
 # Check for dotfiles github updates
@@ -78,7 +70,7 @@ if [ -d "${DOTFILES}/zshrc-settings" ]; then
 	done
 fi
 
-if [ -f "${FILE_TO_SOURCE}" ]; then
-	source ${FILE_TO_SOURCE}
+if [ -f "${DEFAULT_SOURCE}" ]; then
+	source ${DEFAULT_SOURCE} ${CURRENT_SOURCE}
 fi
 

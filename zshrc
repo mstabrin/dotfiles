@@ -14,11 +14,16 @@ if [[ ! -n ${UPDATE_ENV} ]]; then
 
     # Write current environment
     source ${DOTFILES}/write_env.zsh
-    FILE_TO_SOURCE=${CURRENT_SOURCE}
-else
-    # Change environment
-    source ${DOTFILES}/reset_env.zsh
     FILE_TO_SOURCE=${DEFAULT_SOURCE}
+else
+    source ${DOTFILES}/reset_env.zsh
+    # If CURRENT_SOURCE, source it
+    if [[ ${CURRENT_SOURCE} ]]; then
+        # Change environment
+        FILE_TO_SOURCE=${CURRENT_SOURCE}
+    else
+        FILE_TO_SOURCE=${DEFAULT_SOURCE}
+    fi
 fi
 
 # Check for dotfiles github updates

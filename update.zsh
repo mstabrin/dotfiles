@@ -2,6 +2,8 @@
 
 # Check for updates
 echo '-Check for dotfile updates-'
+CURRENT_DIRECTORY=${PWD}
+echo ${CURRENT_DIRECTORY}
 cd ${DOTFILES}
 
 git update-index --assume-unchanged .update_counter

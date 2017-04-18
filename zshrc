@@ -74,3 +74,4 @@ if [ -f "${DEFAULT_SOURCE}" ]; then
 	source ${DEFAULT_SOURCE} ${CURRENT_SOURCE}
 fi
 
+cd ${CURRENT_DIRECTORY}

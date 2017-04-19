@@ -2,9 +2,7 @@
 
 # Check for updates
 echo '-Check for dotfile updates-'
-if [[ -n ${CURRENT_DIRECTORY} ]]; then
-    CURRENT_DIRECTORY=${PWD}
-fi
+CURRENT_UPDATE_DIRECTORY=${PWD}
 UPDATE_LOG_FILE=${DOTFILES}/update.logfile
 cd ${DOTFILES}
 
@@ -74,5 +72,5 @@ fi
 # Delete temp file and reset update counter
 rm ${UPDATE_LOG_FILE} > /dev/null 2>&1
 echo 1 > ${UPDATE_ZSH_COUNT_FILE}
-cd ${CURRENT_DIRECTORY}
+cd ${CURRENT_UPDATE_DIRECTORY}
 

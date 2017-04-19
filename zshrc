@@ -1,5 +1,4 @@
 # Local variables
-CURRENT_DIRECTORY=${PWD}
 DEFAULT_SOURCE=${HOME}/.zshrc_local
 CURRENT_SOURCE=${1}
 
@@ -76,5 +75,3 @@ fi
 if [[ -f "${DEFAULT_SOURCE}" ]]; then
 	source ${DEFAULT_SOURCE} ${CURRENT_SOURCE}
 fi
-
-cd ${CURRENT_DIRECTORY}

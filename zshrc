@@ -20,7 +20,12 @@ else
 fi
 
 # Check for dotfiles github updates
-update_count=$(cat ${UPDATE_ZSH_COUNT_FILE})
+if [[ -f ${UPDATE_ZSH_COUNT_FILE} ]]; then
+	update_count=$(cat ${UPDATE_ZSH_COUNT_FILE})
+else
+	update_count=1
+fi
+
 if [[ $((${update_count} % 20)) == 0 ]]; then
     echo 'You did not check for updates for several logins: Do you want to check for updates? [y/n]: '
     read input

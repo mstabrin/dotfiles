@@ -2,3 +2,4 @@ vim-plugin/*
 vim-install/*
 miniconda-install/*
 zshrc-settings/*
+.*

@@ -3,10 +3,8 @@
 # Check for updates
 echo '-Check for dotfile updates-'
 CURRENT_DIRECTORY=${PWD}
-echo ${CURRENT_DIRECTORY}
+UPDATE_LOG_FILE=${DOTFILES}/update.logfile
 cd ${DOTFILES}
-
-git update-index --assume-unchanged .update_counter
 
 # Check if the timout command exists
 timeout 1 sleep 0.1 > /dev/null 2>&1
@@ -30,27 +28,27 @@ fi
 
 # If successful check for updates, else dont
 if [[ ${do_update} == 0 ]]; then
-    git fetch --dry-run 1> update.logfile 2>/dev/null
+    git fetch --dry-run 1> ${UPDATE_LOG_FILE} 2>/dev/null
     # Check if you need to update
     do_stat=false
     do_gstat=false
 
-    stat -c%s update.logfile > /dev/null 2>&1
+    stat -c%s ${UPDATE_LOG_FILE} > /dev/null 2>&1
     if [[ $? == 0 ]]; then
         do_stat=true
         do_gstat=false
     fi
 
-    gstat -c%s update.logfile > /dev/null 2>&1
+    gstat -c%s ${UPDATE_LOG_FILE} > /dev/null 2>&1
     if [[ $? == 0 ]]; then
         do_stat=false
         do_gstat=true
     fi
 
     if [[ $do_stat = true ]]; then
-        size=$(stat -c%s ${DOTFILES}/update.logfile)
+        size=$(stat -c%s ${UPDATE_LOG_FILE})
     elif [[ $do_gstat = true ]]; then
-        size=$(gstat -c%s ${DOTFILES}/update.logfile)
+        size=$(gstat -c%s ${UPDATE_LOG_FILE})
     else
         size=0
     fi
@@ -72,7 +70,7 @@ else
     echo 'Update failed!'
 fi
 # Delete temp file and reset update counter
-rm update.logfile > /dev/null 2>&1
-echo 1 > ${DOTFILES}/.update_counter
+rm ${UPDATE_LOG_FILE} > /dev/null 2>&1
+echo 1 > ${UPDATE_ZSH_COUNT_FILE}
 cd ${CURRENT_DIRECTORY}
 

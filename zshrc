@@ -4,13 +4,15 @@ DEFAULT_SOURCE=${HOME}/.zshrc_local
 CURRENT_SOURCE=${1}
 
 # Check if it is an update or a new session
-if [[ ! -n ${UPDATE_ENV} ]]; then
+if [[ ! -n ${UPDATE_ZSH_ENV} ]]; then
     # Load for the first time (new session)
     export DOTFILES=${HOME}/dotfiles
     export ZSH=${DOTFILES}/oh-my-zsh
     export ZSHRC_DEFAULT_ENV=${DOTFILES}/zshrc-settings/zshrc_default_env
     export ZSHRC_DEFAULT_ALIAS=${DOTFILES}/zshrc-settings/zshrc_default_alias
-    export UPDATE_ENV=true
+    export UPDATE_ZSH_ENV=true
+    export UPDATE_ZSH_FILE=${DOTFILES}/update.zsh
+    export UPDATE_ZSH_COUNT_FILE=${DOTFILES}/.update_counter
 
     # Write current environment
     source ${DOTFILES}/write_env.zsh
@@ -19,17 +21,17 @@ else
 fi
 
 # Check for dotfiles github updates
-update_count=$(cat ${DOTFILES}/.update_counter)
-if [[ $(($update_count % 20)) == 0 ]]; then
+update_count=$(cat ${UPDATE_ZSH_COUNT_FILE})
+if [[ $((${update_count} % 20)) == 0 ]]; then
     echo 'You did not check for updates for several logins: Do you want to check for updates? [y/n]: '
     read input
     if [[ $input == 'y' ]]; then
-        source ${DOTFILES}/update.zsh
+        source ${UPDATE_ZSH_FILE}
     else
         echo 'Skip update'
     fi
 fi
-echo $(($update_count+1)) > ${DOTFILES}/.update_counter
+echo $((${update_count}+1)) > ${UPDATE_ZSH_COUNT_FILE}
 
 # Layout oh my zsh paths
 ZSH_THEME="my_afowler"
@@ -70,6 +72,7 @@ if [[ -d "${DOTFILES}/zshrc-settings" ]]; then
 	done
 fi
 
+# Source default
 if [[ -f "${DEFAULT_SOURCE}" ]]; then
 	source ${DEFAULT_SOURCE} ${CURRENT_SOURCE}
 fi

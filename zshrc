@@ -55,7 +55,7 @@ fi
 source $ZSH/oh-my-zsh.sh
 
 # Load vim alias
-if [ -d "${DOTFILES}/vim-install" ]; then
+if [[ -d "${DOTFILES}/vim-install" ]]; then
 	for file in ${DOTFILES}/vim-install/*.zsh
 	do
 		source $file
@@ -63,14 +63,14 @@ if [ -d "${DOTFILES}/vim-install" ]; then
 fi
 
 # Load zsh related settings
-if [ -d "${DOTFILES}/zshrc-settings" ]; then
+if [[ -d "${DOTFILES}/zshrc-settings" ]]; then
 	for file in ${DOTFILES}/zshrc-settings/*.zsh
 	do
 		source $file
 	done
 fi
 
-if [ -f "${DEFAULT_SOURCE}" ]; then
+if [[ -f "${DEFAULT_SOURCE}" ]]; then
 	source ${DEFAULT_SOURCE} ${CURRENT_SOURCE}
 fi
 

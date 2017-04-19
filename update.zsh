@@ -2,7 +2,9 @@
 
 # Check for updates
 echo '-Check for dotfile updates-'
-CURRENT_DIRECTORY=${PWD}
+if [[ -n ${CURRENT_DIRECTORY} ]]; then
+    CURRENT_DIRECTORY=${PWD}
+fi
 UPDATE_LOG_FILE=${DOTFILES}/update.logfile
 cd ${DOTFILES}
 
@@ -28,7 +30,7 @@ fi
 
 # If successful check for updates, else dont
 if [[ ${do_update} == 0 ]]; then
-    git fetch --dry-run 1> ${UPDATE_LOG_FILE} 2>/dev/null
+    git fetch --dry-run 1>${UPDATE_LOG_FILE} 2>&1
     # Check if you need to update
     do_stat=false
     do_gstat=false

@@ -97,6 +97,12 @@ set statusline+=%4*\ %{&ff}\                              "FileFormat (dos/unix.
 set statusline+=%8*\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
 set statusline+=%9*\ col:%03c\                            "Colnr
 set statusline+=%0*\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
+set laststatus=2
+
+" Do case insensitive search
+set ignorecase
+" Dont ignore if capital letters are used
+set smartcase
 
 """""""""""""""" Remap keys
 
@@ -151,3 +157,6 @@ fun! Incr()
     normal `<
 endfunction
 vmap \inc :call Incr()<CR>
+
+"""""""""""" Adjust smart scroll speed
+let g:ms_per_line=5

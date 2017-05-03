@@ -2,21 +2,29 @@
 DEFAULT_SOURCE=${HOME}/.zshrc_local
 CURRENT_SOURCE=${1}
 
-# Check if it is an update or a new session
-if [[ ! -n ${UPDATE_ZSH_ENV} ]]; then
-    # Load for the first time (new session)
-    export DOTFILES=${HOME}/dotfiles
-    export ZSH=${DOTFILES}/oh-my-zsh
-    export ZSHRC_DEFAULT_ENV=${DOTFILES}/zshrc-settings/zshrc_default_env
-    export ZSHRC_DEFAULT_ALIAS=${DOTFILES}/zshrc-settings/zshrc_default_alias
-    export UPDATE_ZSH_ENV=true
-    export UPDATE_ZSH_FILE=${DOTFILES}/update.zsh
-    export UPDATE_ZSH_COUNT_FILE=${DOTFILES}/.update_counter
+# LOGIN specific variables
+export DOTFILES=${HOME}/dotfiles
+export ZSH=${DOTFILES}/oh-my-zsh
+export DEFAULT_LOGIN_ENV=${HOME}/.default_login_env
+export DEFAULT_LOGIN_ALIAS=${HOME}/.default_login_alias
+export UPDATE_LOGIN_ENV=true
+export UPDATE_ZSH_FILE=${DOTFILES}/update.zsh
+export UPDATE_ZSH_COUNT_FILE=${DOTFILES}/.update_counter
 
+# Check if it is an update or a new session
+if [[ ${UPDATE_LOGIN_ENV} != true ]]; then
     # Write current environment
     source ${DOTFILES}/write_env.zsh
 else
     source ${DOTFILES}/reset_env.zsh
+    # LOGIN specific variables
+    export DOTFILES=${HOME}/dotfiles
+    export ZSH=${DOTFILES}/oh-my-zsh
+    export DEFAULT_LOGIN_ENV=${HOME}/.default_login_env
+    export DEFAULT_LOGIN_ALIAS=${HOME}/.default_login_alias
+    export UPDATE_LOGIN_ENV=true
+    export UPDATE_ZSH_FILE=${DOTFILES}/update.zsh
+    export UPDATE_ZSH_COUNT_FILE=${DOTFILES}/.update_counter
 fi
 
 # Check for dotfiles github updates

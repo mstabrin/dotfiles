@@ -1,6 +1,6 @@
 # Needed variables after reset
-DEFAULT_ENV=${ZSHRC_DEFAULT_ENV}
-DEFAULT_ALIAS=${ZSHRC_DEFAULT_ALIAS}
+DEFAULT_ENV=${DEFAULT_LOGIN_ENV}
+DEFAULT_ALIAS=${DEFAULT_LOGIN_ALIAS}
 
 # Reset env
 for entry in `env | sed 's/=.*//'`

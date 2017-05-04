@@ -7,7 +7,6 @@ export DOTFILES=${HOME}/dotfiles
 export ZSH=${DOTFILES}/oh-my-zsh
 export DEFAULT_LOGIN_ENV=${HOME}/.default_login_env
 export DEFAULT_LOGIN_ALIAS=${HOME}/.default_login_alias
-export UPDATE_LOGIN_ENV=true
 export UPDATE_ZSH_FILE=${DOTFILES}/update.zsh
 export UPDATE_ZSH_COUNT_FILE=${DOTFILES}/.update_counter
 
@@ -16,6 +15,7 @@ if [[ ${UPDATE_LOGIN_ENV} != true ]]; then
     # Write current environment
     source ${DOTFILES}/write_env.zsh
 else
+    echo "Reset environment"
     source ${DOTFILES}/reset_env.zsh
     # LOGIN specific variables
     export DOTFILES=${HOME}/dotfiles

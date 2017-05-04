@@ -13,6 +13,7 @@ export UPDATE_ZSH_COUNT_FILE=${DOTFILES}/.update_counter
 # Check if it is an update or a new session
 if [[ ${UPDATE_LOGIN_ENV} != true ]]; then
     # Write current environment
+    export UPDATE_LOGIN_ENV=true
     source ${DOTFILES}/write_env.zsh
 else
     echo "Reset environment"

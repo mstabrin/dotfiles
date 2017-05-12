@@ -58,8 +58,6 @@ if [[ ${do_update} == 0 ]]; then
         read input
         if [[ $input == 'y' ]]; then
             git pull
-            git submodule update
-            vim +PluginInstall +qall
         else
             echo 'Skip update'
         fi
@@ -69,6 +67,12 @@ if [[ ${do_update} == 0 ]]; then
 else
     echo 'Update failed!'
 fi
+
+# Update submodules
+git submodule update
+# Update vim Plugins
+vim +PluginUpdate +qall 
+
 # Delete temp file and reset update counter
 rm ${UPDATE_LOG_FILE} > /dev/null 2>&1
 echo 1 > ${UPDATE_ZSH_COUNT_FILE}

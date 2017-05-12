@@ -32,7 +32,7 @@ run:
 	${MAKE} install-vim OS=${OS}
 	${MAKE} clean-vim OS=${OS}
 	${MAKE} write-vim-zsh OS=${OS}
-	${MAKE} install-vim-Plugins OS=${OS}
+	${MAKE} install-vim-plugins OS=${OS}
 	${MAKE} move-zshrc OS=${OS}
 	@echo 'All done'
 

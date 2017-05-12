@@ -32,6 +32,7 @@ run:
 	${MAKE} install-vim OS=${OS}
 	${MAKE} clean-vim OS=${OS}
 	${MAKE} write-vim-zsh OS=${OS}
+	${MAKE} install-vim-plugins OS=${OS}
 	${MAKE} move-zshrc OS=${OS}
 	@echo 'All done'
 
@@ -88,6 +89,11 @@ write-vim-zsh:
 	echo alias vimtutor2='"${VIM_TEMP_DIR_2}-install/bin/vimtutor -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
 	echo alias view2='"${VIM_TEMP_DIR_2}-install/bin/view -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
 	echo alias rview2='"${VIM_TEMP_DIR_2}-install/bin/rview -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
+
+install-vim-plugins:
+	${VIM_TEMP_DIR}-install/bin/vim -u ${HOME}/dotfiles/vimrc +PluginInstall +qall
+	${VIM_TEMP_DIR_2}-install/bin/vim -u ${HOME}/dotfiles/vimrc +PluginInstall +qall
+	./build_vim_plugins.zsh
 
 download-miniconda-linux: | preclean
 	echo 'Download miniconda'

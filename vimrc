@@ -27,6 +27,8 @@ Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
 Plugin 'https://github.com/dhruvasagar/vim-table-mode.git'
 " Smooth scrolling
 Plugin 'https://github.com/cskeeters/vim-smooth-scroll.git'
+" You complete me
+Plugin 'https://github.com/Valloric/YouCompleteMe.git'
 
 call vundle#end()
 
@@ -79,6 +81,7 @@ set lazyredraw
 set fileformat=unix
 " Bar hinting for 80 chars
 set colorcolumn=81
+highlight ColorColumn ctermbg=darkgray
 
 """"""""""""""""" Search things
 
@@ -103,6 +106,10 @@ set laststatus=2
 set ignorecase
 " Dont ignore if capital letters are used
 set smartcase
+
+""""""""""""""" local settings
+set exrc " Load vimrc in current directory
+set secure " Save vimrc content
 
 """""""""""""""" Remap keys
 

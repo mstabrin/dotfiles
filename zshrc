@@ -67,7 +67,7 @@ else
 fi
 
 # Oh my zsh settings
-source $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh 2>/dev/null
 
 # Load vim alias
 if [[ -d "${DOTFILES}/vim-install" ]]; then
@@ -81,7 +81,7 @@ fi
 if [[ -d "${DOTFILES}/zshrc-settings" ]]; then
 	for file in ${DOTFILES}/zshrc-settings/*.zsh
 	do
-		source $file
+		source $file 2>/dev/null
 	done
 fi
 

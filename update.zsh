@@ -64,14 +64,20 @@ if [[ ${do_update} == 0 ]]; then
     else
         echo 'No update available'
     fi
+
+    # Update submodules
+    echo 'Update submodules'
+    git submodule update
+
+    if [[ -d ${DOTFILES}/vim-install ]];then
+        # Update vim Plugins
+        echo 'Update vim plugins'
+        vim +PluginUpdate +qall 
+    fi
+
 else
     echo 'Update failed!'
 fi
-
-# Update submodules
-git submodule update
-# Update vim Plugins
-vim +PluginUpdate +qall 
 
 # Delete temp file and reset update counter
 rm ${UPDATE_LOG_FILE} > /dev/null 2>&1

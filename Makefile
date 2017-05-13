@@ -11,7 +11,6 @@ MINICONDA_SH_FILE_OUT=Miniconda.sh
 MINICONDA_INSTALL_DIR=${HOME}/dotfiles/miniconda-install
 MINICONDA_REL=miniconda-install
 MINICONDA_TEMP=${HOME}/dotfiles
-MINICONDA_ZSHRC=miniconda.zsh
 MINICONDA_ENV=${HOME}/dotfiles/miniconda-envs
 ZSHRC_OPTIONS=${HOME}/dotfiles/zshrc-settings
 
@@ -25,9 +24,11 @@ mac:
 	${MAKE} run OS=mac
 
 run:
+	${MAKE} preclean OS=${OS}
 	${MAKE} download-miniconda-${OS} OS=${OS}
 	${MAKE} install-miniconda OS=${OS}
 	${MAKE} clean-miniconda OS=${OS}
+	${MAKE} build-directorys OS=${OS}
 	${MAKE} download-vim-${OS} OS=${OS}
 	${MAKE} install-vim OS=${OS}
 	${MAKE} clean-vim OS=${OS}
@@ -39,21 +40,19 @@ run:
 preclean:
 	if [ -d "${VIM_INSTALL_DIR}" ]; then rm -r ${VIM_INSTALL_DIR}; fi
 	if [ -d "${MINICONDA_INSTALL_DIR}" ]; then rm -r ${MINICONDA_INSTALL_DIR}; fi
-	if [ -e "${MINICONDA_TEMP}/${MINICONDA_ZSHRC}" ]; then rm ${MINICONDA_TEMP}/${MINICONDA_ZSHRC}; fi
 
-build-directorys: | preclean
+build-directorys:
 	echo 'Create vim install directory'
 	mkdir -p ${VIM_INSTALL_DIR}
 	mkdir -p ${VIM_TEMP_DIR}
-	mkdir -p ${VIM_TEMP_DIR_2}
 
-download-vim-linux: | build-directorys
+download-vim-linux:
 	echo 'Download vim'
 	wget ftp://ftp.vim.org/pub/vim/unix/${VIM_TAR_FILE} -O ${VIM_INSTALL_DIR}/${VIM_TAR_FILE}
 	echo 'Untar files'
 	cd ${VIM_INSTALL_DIR}; tar xvf ${VIM_TAR_FILE}
 
-download-vim-mac: | build-directorys
+download-vim-mac:
 	echo 'Download vim'
 	curl ftp://ftp.vim.org/pub/vim/unix/${VIM_TAR_FILE} -o ${VIM_INSTALL_DIR}/${VIM_TAR_FILE}
 	echo 'Untar files'
@@ -69,6 +68,7 @@ install-vim:
 		make install; \
 		export PATH=${OLD_PATH}
 	cd ${VIM_TEMP_DIR}; \
+		export OLD_PATH=${PATH}; \
 		export PATH=${MINICONDA_INSTALL_DIR}/envs/python2.7/bin:${PATH}; \
 		./configure --prefix=${VIM_TEMP_DIR_2}-install --with-features=huge --enable-rubyinterp --enable-pythoninterp --with-python-config-dir=${MINICONDA_INSTALL_DIR}/envs/python2/lib/python2.7/config --enable-cscope --enable-luainterp; \
 		make; \
@@ -95,11 +95,11 @@ install-vim-plugins:
 	${VIM_TEMP_DIR_2}-install/bin/vim -u ${HOME}/dotfiles/vimrc +PluginInstall +qall
 	./build_vim_plugins.zsh
 
-download-miniconda-linux: | preclean
+download-miniconda-linux:
 	echo 'Download miniconda'
 	wget https://repo.continuum.io/miniconda/${MINICONDA_SH_FILE_LINUX} -O ${MINICONDA_TEMP}/${MINICONDA_SH_FILE_OUT}
 
-download-miniconda-mac: | preclean
+download-miniconda-mac:
 	echo 'Download miniconda'
 	curl https://repo.continuum.io/miniconda/${MINICONDA_SH_FILE_MAC} -o ${MINICONDA_TEMP}/${MINICONDA_SH_FILE_OUT}
 
@@ -114,7 +114,6 @@ clean-miniconda:
 clean-vim:
 	rm ${VIM_INSTALL_DIR}/${VIM_TAR_FILE}
 	rm -r ${VIM_TEMP_DIR}
-	rm -r ${VIM_TEMP_DIR_2}
 
 move-zshrc:
 	if [ -f ${HOME}/.zshrc_before_dotfile_change ]; then \

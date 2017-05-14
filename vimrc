@@ -28,7 +28,7 @@ Plugin 'https://github.com/dhruvasagar/vim-table-mode.git'
 " Smooth scrolling
 Plugin 'https://github.com/cskeeters/vim-smooth-scroll.git'
 " You complete me
-Plugin 'https://github.com/Valloric/YouCompleteMe.git'
+"Plugin 'https://github.com/Valloric/YouCompleteMe.git'
 
 call vundle#end()
 

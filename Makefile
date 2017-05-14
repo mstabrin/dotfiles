@@ -93,7 +93,6 @@ write-vim-zsh:
 install-vim-plugins:
 	${VIM_TEMP_DIR}-install/bin/vim -u ${HOME}/dotfiles/vimrc +PluginInstall +qall
 	${VIM_TEMP_DIR_2}-install/bin/vim -u ${HOME}/dotfiles/vimrc +PluginInstall +qall
-	./build_vim_plugins.zsh
 
 download-miniconda-linux:
 	echo 'Download miniconda'

@@ -76,7 +76,8 @@ install-vim:
 		export PATH=${OLD_PATH}
 
 write-vim-zsh:
-	echo alias oldvim=vim >> ${VIM_INSTALL_DIR}/vim.zsh
+	sh add_vim_path.sh ${VIM_TEMP_DIR} ${VIM_INSTALL_DIR}/vim.zsh
+	echo alias oldvim=/usr/bin/vim >> ${VIM_INSTALL_DIR}/vim.zsh
 	echo alias vim='"${VIM_TEMP_DIR}-install/bin/vim -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
 	echo alias vimdiff='"${VIM_TEMP_DIR}-install/bin/vimdiff -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh
 	echo alias rvim='"${VIM_TEMP_DIR}-install/bin/rvim -u ${HOME}/dotfiles/vimrc"' >> ${VIM_INSTALL_DIR}/vim.zsh

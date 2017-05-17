@@ -32,86 +32,9 @@ Plugin 'https://github.com/cskeeters/vim-smooth-scroll.git'
 
 call vundle#end()
 
-"""""""""""""""" syntax and indent
+""""""""""""""" Basic functions
 
-" Use colorscheme
-colorscheme peachpuff
-
-" load filetype-specific indent files
-filetype plugin indent on 
-" Enable syntax
-syntax enable
-" better visual line breaks
-set breakindent
-"·width·of·tab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-" enable folding
-set foldmethod=indent
-set foldlevel=99
-" Edit previous text and over linebreaks
-set backspace=indent,eol,start
-
-"""""""""""""""" Vim Look and Feel
-
-" Always split to the right or below
-set splitright
-set splitbelow
-" Relative numbers
-set relativenumber
-" line numbers
-set number
-" syntax highlighting
-syntax on
-" encoding
-set encoding=utf-8
-" show the command in bottom line
-set showcmd
-" list whitespaces and some other characters
-set listchars=tab:>-,space:·,eol:✂︎
-set list
-" Color for special keys
-hi SpecialKey ctermfg=59
-hi NonText ctermfg=59
-hi CursorLineNr ctermbg=59 ctermfg=white
-" redraw only when we need to.
-set lazyredraw
-" file format
-set fileformat=unix
-" Bar hinting for 80 chars
-set colorcolumn=81
-highlight ColorColumn ctermbg=darkgray
-
-""""""""""""""""" Search things
-
-" path for subfolders
-set path=**
-" visual autocomplete for command menu
-set wildmenu
-
-set statusline=
-set statusline+=%7*\[%n]                                  "buffernr
-set statusline+=%1*\ %<%F\                                "File+path
-set statusline+=%2*\ %y\                                  "FileType
-set statusline+=%3*\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
-set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
-set statusline+=%4*\ %{&ff}\                              "FileFormat (dos/unix..) 
-set statusline+=%8*\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
-set statusline+=%9*\ col:%03c\                            "Colnr
-set statusline+=%0*\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
-set laststatus=2
-
-" Do case insensitive search
-set ignorecase
-" Dont ignore if capital letters are used
-set smartcase
-
-""""""""""""""" local settings
-set exrc " Load vimrc in current directory
-set secure " Save vimrc content
-
-"""""""""""""""" Remap keys
+source ${DOTFILES}/vimrc_basic
 
 """"""""""""""" Nerdtree
 

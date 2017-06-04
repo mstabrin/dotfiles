@@ -48,7 +48,7 @@ build-directorys:
 
 download-vim-linux:
 	echo 'Download vim'
-	wget ftp://ftp.vim.org/pub/vim/unix/${VIM_TAR_FILE} -O ${VIM_INSTALL_DIR}/${VIM_TAR_FILE}
+	curl ftp://ftp.vim.org/pub/vim/unix/${VIM_TAR_FILE} -o ${VIM_INSTALL_DIR}/${VIM_TAR_FILE}
 	echo 'Untar files'
 	cd ${VIM_INSTALL_DIR}; tar xvf ${VIM_TAR_FILE}
 
@@ -97,7 +97,7 @@ install-vim-plugins:
 
 download-miniconda-linux:
 	echo 'Download miniconda'
-	wget https://repo.continuum.io/miniconda/${MINICONDA_SH_FILE_LINUX} -O ${MINICONDA_TEMP}/${MINICONDA_SH_FILE_OUT}
+	curl https://repo.continuum.io/miniconda/${MINICONDA_SH_FILE_LINUX} -o ${MINICONDA_TEMP}/${MINICONDA_SH_FILE_OUT}
 
 download-miniconda-mac:
 	echo 'Download miniconda'

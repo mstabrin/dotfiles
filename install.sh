@@ -185,3 +185,6 @@ fi
 echo 'CURRENT_ENV=${1}' >> ${LOCAL_FILE}
 echo 'export DOTFILES='"${DOTFILES}" >> ${LOCAL_FILE}
 echo 'source ${DOTFILES}/zshrc ${CURRENT_ENV}' >> ${LOCAL_FILE}
+
+
+echo "Installation finished! Restart your terminal and type 'zsh'"

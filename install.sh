@@ -58,7 +58,7 @@ BACKUP_FILE=${LOCAL_FILE}.bkp.${current_time}
 
 # Install log
 INSTALL_LOG=install.log
-MAX_TASKS=13
+MAX_TASKS=16
 CURRENT_TASK=1
 
 #-----------------------------------------

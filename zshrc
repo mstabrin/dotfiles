@@ -1,9 +1,9 @@
 # Local variables
-DEFAULT_SOURCE=${HOME}/.zshrc_local
 CURRENT_SOURCE=${1}
+DEFAULT_SOURCE=${HOME}/.zshrc_local
+DOTFILES_LOC=${DOTFILES}
 
 # LOGIN specific variables
-export DOTFILES=${HOME}/dotfiles
 export ZSH=${DOTFILES}/oh-my-zsh
 export DEFAULT_LOGIN_ENV=${HOME}/.default_login_env
 export DEFAULT_LOGIN_ALIAS=${HOME}/.default_login_alias
@@ -19,7 +19,7 @@ else
     echo "Reset environment"
     source ${DOTFILES}/reset_env.zsh
     # LOGIN specific variables
-    export DOTFILES=${HOME}/dotfiles
+    export DOTFILES=${DOTFILES_LOC}
     export ZSH=${DOTFILES}/oh-my-zsh
     export DEFAULT_LOGIN_ENV=${HOME}/.default_login_env
     export DEFAULT_LOGIN_ALIAS=${HOME}/.default_login_alias

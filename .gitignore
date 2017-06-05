@@ -3,3 +3,4 @@ vim-install/*
 miniconda-install/*
 zshrc-settings/*
 .*
+install.log

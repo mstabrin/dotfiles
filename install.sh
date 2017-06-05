@@ -21,7 +21,9 @@ MINICONDA_VERSION='latest'
 
 # Download names
 VIM_DOWNLOAD_FILE="vim-${VIM_DOWNLOAD_VERSION}.tar.bz2"
+VIM_DOWNLOAD_PAGE="ftp://ftp.vim.org/pub/vim/unix/${VIM_DOWNLOAD_FILE}"
 MINICONDA_DOWNLOAD_FILE="Miniconda3-${MINICONDA_VERSION}-${OS}-x86_64.sh"
+MINICONDA_DOWNLOAD_PAGE="https://repo.continuum.io/miniconda/${MINICONDA_DOWNLOAD_FILE}"
 
 # Install dirs
 export DOTFILES=${PWD}
@@ -82,7 +84,7 @@ CURRENT_TASK=$((CURRENT_TASK + 1))
 # Download and install miniconda
 echo "${CURRENT_TASK}/${MAX_TASKS} Download miniconda version ${MINICONDA_DOWNLOAD_FILE}"
 CURRENT_TASK=$((CURRENT_TASK + 1))
-curl -O https://repo.continuum.io/miniconda/${MINICONDA_DOWNLOAD_FILE} > ${INSTALL_LOG} 2>&1
+curl -O ${MINICONDA_DOWNLOAD_PAGE} > ${INSTALL_LOG} 2>&1
 echo "${CURRENT_TASK}/${MAX_TASKS} Install miniconda"
 CURRENT_TASK=$((CURRENT_TASK + 1))
 bash ${MINICONDA_DOWNLOAD_FILE} -b -p ${MINICONDA_INSTALL_DIR} >> ${INSTALL_LOG} 2>&1
@@ -105,7 +107,7 @@ ${MINICONDA_INSTALL_DIR}/bin/conda env create -f ${MINICONDA_ENV_DIR}/python3.5.
 # Download and untar vim
 echo "${CURRENT_TASK}/${MAX_TASKS} Download vim"
 CURRENT_TASK=$((CURRENT_TASK + 1))
-curl -O ftp://ftp.vim.org/pub/vim/unix/${VIM_DOWNLOAD_FILE} >> ${INSTALL_LOG} 2>&1
+curl -O ${VIM_DOWNLOAD_PAGE} >> ${INSTALL_LOG} 2>&1
 echo "${CURRENT_TASK}/${MAX_TASKS} create vim install folder"
 CURRENT_TASK=$((CURRENT_TASK + 1))
 mkdir -p ${VIM_INSTALL_DIR} >> ${INSTALL_LOG} 2>&1

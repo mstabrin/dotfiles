@@ -1,3 +1,5 @@
+#! /bin/bash
+
 # Operating system
 OS=${1}
 if [[ -n ${OS} ]]; then
@@ -44,11 +46,13 @@ VIM_CONFIGURE_PYTHON3="--enable-python3interp --with-python-config-dir=${MINICON
 # Vim env source file
 VIM_SOURCE_FILE=${VIM_INSTALL_DIR}/vim.zsh
 VIMRC_FILE=${DOTFILES}/vimrc
+WAKATIME_TEMPLATE=${DOTFILES}/wakatime_template
+WAKATIME_FILE=${HOME}/.wakatime.cfg
 
 # Source env file
 current_time=$(date +%Y%m%d_%Hh_%Mm_%Ss)
-LOCAL_FILE=${HOME}/.zshrc_local
-BACKUP_FILE=${HOME}/.zshrc_local.bkp.$(current_time)
+LOCAL_FILE=${HOME}/.zshrc
+BACKUP_FILE=${LOCAL_FILE}.bkp.${current_time}
 
 # Install log
 INSTALL_LOG=install.log
@@ -161,6 +165,9 @@ git submodule update
 
 echo "${CURRENT_TASK}/${MAX_TASKS} Install vim plugins"
 CURRENT_TASK=$((CURRENT_TASK + 1))
+if [[ ! -f ${WAKATIME_FILE} ]];then
+    cp ${WAKATIME_TEMPLATE} ${WAKATIME_FILE}
+fi
 ${VIM_PYTHON2_DIR}/bin/vim -u ${VIMRC_FILE} +PluginInstall +qall
 ${VIM_PYTHON3_DIR}/bin/vim -u ${VIMRC_FILE} +PluginInstall +qall
 

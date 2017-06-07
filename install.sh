@@ -171,7 +171,9 @@ if [[ ! -f ${WAKATIME_FILE} ]];then
     cp ${WAKATIME_TEMPLATE} ${WAKATIME_FILE}
 fi
 ${VIM_PYTHON2_DIR}/bin/vim -u ${VIMRC_FILE} +PluginInstall +qall
+${VIM_PYTHON2_DIR}/bin/vim -u ${VIMRC_FILE} +PluginUpdate +qall
 ${VIM_PYTHON3_DIR}/bin/vim -u ${VIMRC_FILE} +PluginInstall +qall
+${VIM_PYTHON3_DIR}/bin/vim -u ${VIMRC_FILE} +PluginUpdate +qall
 
 #-----------------------------------------
 #--------------Create source file---------

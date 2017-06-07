@@ -35,17 +35,6 @@ else
 	update_count=1
 fi
 
-if [[ $((${update_count} % 20)) == 0 ]]; then
-    echo 'You did not check for updates for several logins: Do you want to check for updates? [y/n]: '
-    read input
-    if [[ $input == 'y' ]]; then
-        source ${UPDATE_ZSH_FILE}
-    else
-        echo 'Skip update'
-    fi
-fi
-echo $((${update_count}+1)) > ${UPDATE_ZSH_COUNT_FILE}
-
 # Layout oh my zsh paths
 ZSH_THEME="my_afowler"
 ZSH_CUSTOM=${DOTFILES}/oh-my-zsh-custom
@@ -65,6 +54,19 @@ else
     zsh-syntax-highlighting
     )
 fi
+
+if [[ $((${update_count} % 20)) == 0 ]]; then
+    echo 'You did not check for updates for several logins: Do you want to check for updates? [y/n]: '
+    read input
+    if [[ $input == 'y' ]]; then
+        source ${UPDATE_ZSH_FILE}
+        source ${0} ${CURRENT_SOURCE}
+        exit 1
+    else
+        echo 'Skip update'
+    fi
+fi
+echo $((${update_count}+1)) > ${UPDATE_ZSH_COUNT_FILE}
 
 # Oh my zsh settings
 source $ZSH/oh-my-zsh.sh 2>/dev/null

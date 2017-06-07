@@ -55,19 +55,6 @@ else
     )
 fi
 
-if [[ $((${update_count} % 20)) == 0 ]]; then
-    echo 'You did not check for updates for several logins: Do you want to check for updates? [y/n]: '
-    read input
-    if [[ $input == 'y' ]]; then
-        source ${UPDATE_ZSH_FILE}
-        source ${0} ${CURRENT_SOURCE}
-        exit 1
-    else
-        echo 'Skip update'
-    fi
-fi
-echo $((${update_count}+1)) > ${UPDATE_ZSH_COUNT_FILE}
-
 # Oh my zsh settings
 source $ZSH/oh-my-zsh.sh 2>/dev/null
 
@@ -87,7 +74,25 @@ if [[ -d "${DOTFILES}/zshrc-settings" ]]; then
 	done
 fi
 
+DID_NO_UPDATE=true
+if [[ $((${update_count} % 20)) == 0 ]]; then
+    echo $((${update_count}+1)) > ${UPDATE_ZSH_COUNT_FILE}
+    echo 'You did not check for updates for several logins: Do you want to check for updates? [y/n]: '
+    read input
+    if [[ $input == 'y' ]]; then
+        source ${UPDATE_ZSH_FILE}
+        source ${0} ${CURRENT_SOURCE}
+        DID_NO_UPDATE=false
+    else
+        echo 'Skip update'
+    fi
+else
+    echo $((${update_count}+1)) > ${UPDATE_ZSH_COUNT_FILE}
+fi
+
 # Source default
-if [[ -f "${DEFAULT_SOURCE}" ]]; then
-	source ${DEFAULT_SOURCE} ${CURRENT_SOURCE}
+if [[ ${DID_NO_UPDATE} = true ]];then
+    if [[ -f "${DEFAULT_SOURCE}" ]]; then
+        source ${DEFAULT_SOURCE} ${CURRENT_SOURCE}
+    fi
 fi

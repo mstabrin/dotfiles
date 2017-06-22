@@ -1,15 +1,13 @@
 name: krios-pipeline
 channels: !!python/tuple
+- anaconda
 - defaults
 dependencies:
 - cairo=1.14.6=0
-- fontconfig=2.12.1=0
 - freetype=2.5.5=1
-- glib=2.50.2=0
 - harfbuzz=0.9.39=1
 - libffi=3.2.1=1
 - libiconv=1.14=0
-- libpng=1.6.22=0
 - libxml2=2.9.4=0
 - openssl=1.0.2j=0
 - pango=1.40.3=0
@@ -53,6 +51,4 @@ dependencies:
   - urllib3==1.19.1
   - yarl==0.9.8
 prefix: ${DOTFILES}/miniconda-install/envs/pipeline-script
-
-zsh
 

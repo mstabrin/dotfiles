@@ -12,5 +12,5 @@ dependencies:
 - wheel=0.29.0=py35_0
 - xz=5.2.2=1
 - zlib=1.2.8=3
-prefix: /home/em-transfer-user/dotfiles/miniconda-install/envs/python3.5
+prefix: ${DOTFILES}/miniconda-install/envs/python3.5
 

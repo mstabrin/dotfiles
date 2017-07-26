@@ -19,8 +19,6 @@ Plugin 'https://github.com/vim-syntastic/syntastic.git'
 Plugin 'https://github.com/tpope/vim-surround.git'
 " Hardcore mode
 Plugin 'https://github.com/wikitopian/hardmode.git'
-" Wakatime
-Plugin 'https://github.com/wakatime/vim-wakatime.git'
 " Indent guides
 Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
 " Nice looking tables

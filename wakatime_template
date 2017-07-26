@@ -1,9 +1,0 @@
-[settings]
-debug = false
-api_key = XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
-hidefilenames = true
-ignore =
-    COMMIT_EDITMSG$
-    PULLREQ_EDITMSG$
-    MERGE_MSG$
-    TAG_EDITMSG$

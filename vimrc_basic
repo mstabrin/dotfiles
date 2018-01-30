@@ -6,6 +6,9 @@ filetype off
 " Use colorscheme
 colorscheme peachpuff
 
+" Default runtimepath
+set rtp+=${DOTFILES}/vim-settings/after
+
 " load filetype-specific indent files
 filetype plugin indent on 
 " Enable syntax

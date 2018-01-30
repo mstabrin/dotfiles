@@ -27,6 +27,10 @@ set backspace=indent,eol,start
 
 """""""""""""""" Vim Look and Feel
 
+" Highlight search
+set hlsearch
+" Press Space to turn off highlighting and clear any message already displayed.
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 " Always split to the right or below
 set splitright
 set splitbelow

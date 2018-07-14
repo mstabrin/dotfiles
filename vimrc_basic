@@ -29,6 +29,7 @@ set backspace=indent,eol,start
 
 " Highlight search
 set hlsearch
+hi Search cterm=None ctermfg=red ctermbg=green
 " Press Space to turn off highlighting and clear any message already displayed.
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 " Always split to the right or below

@@ -10,21 +10,21 @@ call vundle#begin('$DOTFILES/vim-plugin')
 " Handle Vundle
 Plugin 'VundleVim/Vundle.vim'
 " Nerdtree
-Plugin 'https://github.com/scrooloose/nerdtree.git'
+Plugin 'git@github.com:scrooloose/nerdtree.git'
 " Fugitive for git commands
-Plugin 'https://github.com/tpope/vim-fugitive.git'
+Plugin 'git@github.com:tpope/vim-fugitive.git'
 " Syntax highlighting
-Plugin 'https://github.com/vim-syntastic/syntastic.git'
+Plugin 'git@github.com:vim-syntastic/syntastic.git'
 " Surround vim
-Plugin 'https://github.com/tpope/vim-surround.git'
+Plugin 'git@github.com:tpope/vim-surround.git'
 " Hardcore mode
-Plugin 'https://github.com/wikitopian/hardmode.git'
+Plugin 'git@github.com:wikitopian/hardmode.git'
 " Indent guides
-Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
+Plugin 'git@github.com:nathanaelkane/vim-indent-guides.git'
 " Nice looking tables
-Plugin 'https://github.com/dhruvasagar/vim-table-mode.git'
+Plugin 'git@github.com:dhruvasagar/vim-table-mode.git'
 " Smooth scrolling
-Plugin 'https://github.com/cskeeters/vim-smooth-scroll.git'
+Plugin 'git@github.com:cskeeters/vim-smooth-scroll.git'
 " You complete me
 "Plugin 'https://github.com/Valloric/YouCompleteMe.git'
 

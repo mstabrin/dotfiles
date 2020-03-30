@@ -4,6 +4,8 @@
 OS=${1}
 if [[ -n ${OS} ]]; then
     OS=${OS}
+elif [[ ${OSTYPE} = "linux" ]];then
+    OS=Linux
 elif [[ ${OSTYPE} = "linux-gnu" ]];then
     OS=Linux
 elif [[ ${OSTYPE} = "darwin"* ]];then

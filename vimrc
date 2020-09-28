@@ -27,6 +27,8 @@ Plugin 'https://github.com/dhruvasagar/vim-table-mode.git'
 Plugin 'https://github.com/cskeeters/vim-smooth-scroll.git'
 " You complete me
 "Plugin 'https://github.com/Valloric/YouCompleteMe.git'
+" Vimtex
+Plugin 'https://github.com/lervag/vimtex.git'
 
 call vundle#end()
 
@@ -94,3 +96,27 @@ vmap \inc :call Incr()<CR>
 
 """""""""""" Adjust smart scroll speed
 let g:ms_per_line=5
+
+"""""""""""" VimTex setup
+" use latex flavour for plaintex files
+let g:tex_flavor = "latex"
+
+" set some default options for my personal latexmk
+let g:vimtex_view_method = 'skim'
+let g:vimtex_compiler_latexmk={
+    \ 'options' : [
+    \   '-lualatex',
+    \   '-silent',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \ 'build_dir' : 'livepreview',
+    \}
+"let g:vimtex_quickfix_latexlog = {
+"    \ 'overfull': 0,
+"    \ 'underfull': 0,
+"    \ 'packages': {
+"    \   'default': 0,
+"    \  },
+"    \ }
+set updatetime=300

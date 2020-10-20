@@ -1,9 +1,13 @@
 #! /bin/bash
 
+set -x
+
 # Operating system
 OS=${1}
 if [[ -n ${OS} ]]; then
     OS=${OS}
+elif [[ ${OSTYPE} = "linux" ]];then
+    OS=Linux
 elif [[ ${OSTYPE} = "linux-gnu" ]];then
     OS=Linux
 elif [[ ${OSTYPE} = "darwin"* ]];then
@@ -96,9 +100,7 @@ CURRENT_TASK=$((CURRENT_TASK + 1))
 # Download and install miniconda
 echo "${CURRENT_TASK}/${MAX_TASKS} Download miniconda version ${MINICONDA_DOWNLOAD_FILE}"
 CURRENT_TASK=$((CURRENT_TASK + 1))
-#echo curl -O ${MINICONDA_DOWNLOAD_PAGE} > ${INSTALL_LOG} 2>&1
-#curl -O ${MINICONDA_DOWNLOAD_PAGE} >> ${INSTALL_LOG} 2>&1
-wget ${MINICONDA_DOWNLOAD_PAGE} > ${INSTALL_LOG} 2>&1
+curl -L -O ${MINICONDA_DOWNLOAD_PAGE} > ${INSTALL_LOG} 2>&1
 echo "${CURRENT_TASK}/${MAX_TASKS} Install miniconda"
 CURRENT_TASK=$((CURRENT_TASK + 1))
 echo bash ${MINICONDA_DOWNLOAD_FILE} -b -p ${MINICONDA_INSTALL_DIR} >> ${INSTALL_LOG} 2>&1
@@ -128,7 +130,7 @@ mkdir -p ${NCURSES_INSTALL_DIR} >> ${INSTALL_LOG} 2>&1
 cd ${NCURSES_INSTALL_DIR} >> ${INSTALL_LOG} 2>&1
 echo "${CURRENT_TASK}/${MAX_TASKS} Download ncurses"
 CURRENT_TASK=$((CURRENT_TASK + 1))
-wget ${NCURSES_DOWNLOAD_PAGE} >> ${INSTALL_LOG} 2>&1
+curl -L -O ${NCURSES_DOWNLOAD_PAGE} >> ${INSTALL_LOG} 2>&1
 echo "${CURRENT_TASK}/${MAX_TASKS} Untar ncurses"
 CURRENT_TASK=$((CURRENT_TASK + 1))
 tar -xzf ${NCURSES_DOWNLOAD_FILE} >> ${INSTALL_LOG} 2>&1
@@ -151,7 +153,7 @@ export LDFLAGS=" -L${NCURSES_LIB}"
 # Download and untar vim
 echo "${CURRENT_TASK}/${MAX_TASKS} Download vim"
 CURRENT_TASK=$((CURRENT_TASK + 1))
-wget ${VIM_DOWNLOAD_PAGE} >> ${INSTALL_LOG} 2>&1
+curl -L -O ${VIM_DOWNLOAD_PAGE} >> ${INSTALL_LOG} 2>&1
 echo "${CURRENT_TASK}/${MAX_TASKS} create vim install folder"
 CURRENT_TASK=$((CURRENT_TASK + 1))
 mkdir -p ${VIM_INSTALL_DIR} >> ${INSTALL_LOG} 2>&1

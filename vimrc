@@ -10,26 +10,25 @@ call vundle#begin('$DOTFILES/vim-plugin')
 " Handle Vundle
 Plugin 'VundleVim/Vundle.vim'
 " Nerdtree
-Plugin 'git@github.com:scrooloose/nerdtree.git'
+Plugin 'https://github.com/scrooloose/nerdtree.git'
 " Fugitive for git commands
-Plugin 'git@github.com:tpope/vim-fugitive.git'
+Plugin 'https://github.com/tpope/vim-fugitive.git'
 " Syntax highlighting
-Plugin 'git@github.com:vim-syntastic/syntastic.git'
+Plugin 'https://github.com/vim-syntastic/syntastic.git'
 " Surround vim
-Plugin 'git@github.com:tpope/vim-surround.git'
+Plugin 'https://github.com/tpope/vim-surround.git'
 " Hardcore mode
-Plugin 'git@github.com:wikitopian/hardmode.git'
+Plugin 'https://github.com/wikitopian/hardmode.git'
 " Indent guides
-Plugin 'git@github.com:nathanaelkane/vim-indent-guides.git'
+Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
 " Nice looking tables
-Plugin 'git@github.com:dhruvasagar/vim-table-mode.git'
+Plugin 'https://github.com/dhruvasagar/vim-table-mode.git'
 " Smooth scrolling
-Plugin 'git@github.com:cskeeters/vim-smooth-scroll.git'
-" RST
-Bundle 'Rykka/riv.vim'
-Bundle 'Rykka/InstantRst'
+Plugin 'https://github.com/cskeeters/vim-smooth-scroll.git'
 " You complete me
 "Plugin 'https://github.com/Valloric/YouCompleteMe.git'
+" Vimtex
+Plugin 'https://github.com/lervag/vimtex.git'
 
 call vundle#end()
 
@@ -97,3 +96,27 @@ vmap \inc :call Incr()<CR>
 
 """""""""""" Adjust smart scroll speed
 let g:ms_per_line=5
+
+"""""""""""" VimTex setup
+" use latex flavour for plaintex files
+let g:tex_flavor = "latex"
+
+" set some default options for my personal latexmk
+let g:vimtex_view_method = 'skim'
+let g:vimtex_compiler_latexmk={
+    \ 'options' : [
+    \   '-lualatex',
+    \   '-silent',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \ 'build_dir' : 'livepreview',
+    \}
+"let g:vimtex_quickfix_latexlog = {
+"    \ 'overfull': 0,
+"    \ 'underfull': 0,
+"    \ 'packages': {
+"    \   'default': 0,
+"    \  },
+"    \ }
+set updatetime=300

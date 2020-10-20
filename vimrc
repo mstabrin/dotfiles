@@ -32,10 +32,6 @@ Plugin 'https://github.com/lervag/vimtex.git'
 
 call vundle#end()
 
-""""""""""""""" Basic functions
-
-source ${DOTFILES}/vimrc_basic
-
 """"""""""""""" Nerdtree
 
 " Open nerd tree when vim starts up
@@ -120,3 +116,8 @@ let g:vimtex_compiler_latexmk={
 "    \  },
 "    \ }
 set updatetime=300
+"
+""""""""""""""" Basic functions
+
+source ${DOTFILES}/vimrc_basic
+

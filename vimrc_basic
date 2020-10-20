@@ -20,7 +20,10 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 " enable folding
-set foldmethod=indent
+augroup vimrc
+  au BufReadPre * setlocal foldmethod=indent
+  au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+augroup END
 set foldlevel=99
 " Edit previous text and over linebreaks
 set backspace=indent,eol,start

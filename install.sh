@@ -15,10 +15,10 @@ fi
 echo "Detected operating system: ${OS}"
 
 # Version variables
-VIM_DOWNLOAD_VERSION='8.0'
+VIM_DOWNLOAD_VERSION='8.2'
 VIM_UNTAR_VERSION=$(echo ${VIM_DOWNLOAD_VERSION} | sed 's/\.//g')
 MINICONDA_VERSION='latest'
-NCURSES_DOWNLOAD_VERSION='6.1'
+NCURSES_DOWNLOAD_VERSION='6.2'
 
 # Download names
 VIM_DOWNLOAD_FILE="vim-${VIM_DOWNLOAD_VERSION}.tar.bz2"
@@ -96,20 +96,26 @@ CURRENT_TASK=$((CURRENT_TASK + 1))
 # Download and install miniconda
 echo "${CURRENT_TASK}/${MAX_TASKS} Download miniconda version ${MINICONDA_DOWNLOAD_FILE}"
 CURRENT_TASK=$((CURRENT_TASK + 1))
-curl -O ${MINICONDA_DOWNLOAD_PAGE} > ${INSTALL_LOG} 2>&1
+#echo curl -O ${MINICONDA_DOWNLOAD_PAGE} > ${INSTALL_LOG} 2>&1
+#curl -O ${MINICONDA_DOWNLOAD_PAGE} >> ${INSTALL_LOG} 2>&1
+wget ${MINICONDA_DOWNLOAD_PAGE} > ${INSTALL_LOG} 2>&1
 echo "${CURRENT_TASK}/${MAX_TASKS} Install miniconda"
 CURRENT_TASK=$((CURRENT_TASK + 1))
+echo bash ${MINICONDA_DOWNLOAD_FILE} -b -p ${MINICONDA_INSTALL_DIR} >> ${INSTALL_LOG} 2>&1
 bash ${MINICONDA_DOWNLOAD_FILE} -b -p ${MINICONDA_INSTALL_DIR} >> ${INSTALL_LOG} 2>&1
 echo "${CURRENT_TASK}/${MAX_TASKS} Remove downloaded file"
 CURRENT_TASK=$((CURRENT_TASK + 1))
+echo rm ${MINICONDA_DOWNLOAD_FILE} >> ${INSTALL_LOG} 2>&1
 rm ${MINICONDA_DOWNLOAD_FILE} >> ${INSTALL_LOG} 2>&1
 
 # Install miniconda environments
 echo "${CURRENT_TASK}/${MAX_TASKS} Install python2"
 CURRENT_TASK=$((CURRENT_TASK + 1))
+echo ${MINICONDA_INSTALL_DIR}/bin/conda env create -f ${MINICONDA_ENV_DIR}/python2.yml >> ${INSTALL_LOG} 2>&1
 ${MINICONDA_INSTALL_DIR}/bin/conda env create -f ${MINICONDA_ENV_DIR}/python2.yml >> ${INSTALL_LOG} 2>&1
 echo "${CURRENT_TASK}/${MAX_TASKS} Install python3"
 CURRENT_TASK=$((CURRENT_TASK + 1))
+echo ${MINICONDA_INSTALL_DIR}/bin/conda env create -f ${MINICONDA_ENV_DIR}/python3.5.yml >> ${INSTALL_LOG} 2>&1
 ${MINICONDA_INSTALL_DIR}/bin/conda env create -f ${MINICONDA_ENV_DIR}/python3.5.yml >> ${INSTALL_LOG} 2>&1
 
 #-----------------------------------------
@@ -122,7 +128,7 @@ mkdir -p ${NCURSES_INSTALL_DIR} >> ${INSTALL_LOG} 2>&1
 cd ${NCURSES_INSTALL_DIR} >> ${INSTALL_LOG} 2>&1
 echo "${CURRENT_TASK}/${MAX_TASKS} Download ncurses"
 CURRENT_TASK=$((CURRENT_TASK + 1))
-curl -O ${NCURSES_DOWNLOAD_PAGE} >> ${INSTALL_LOG} 2>&1
+wget ${NCURSES_DOWNLOAD_PAGE} >> ${INSTALL_LOG} 2>&1
 echo "${CURRENT_TASK}/${MAX_TASKS} Untar ncurses"
 CURRENT_TASK=$((CURRENT_TASK + 1))
 tar -xzf ${NCURSES_DOWNLOAD_FILE} >> ${INSTALL_LOG} 2>&1
@@ -145,7 +151,7 @@ export LDFLAGS=" -L${NCURSES_LIB}"
 # Download and untar vim
 echo "${CURRENT_TASK}/${MAX_TASKS} Download vim"
 CURRENT_TASK=$((CURRENT_TASK + 1))
-curl -O ${VIM_DOWNLOAD_PAGE} >> ${INSTALL_LOG} 2>&1
+wget ${VIM_DOWNLOAD_PAGE} >> ${INSTALL_LOG} 2>&1
 echo "${CURRENT_TASK}/${MAX_TASKS} create vim install folder"
 CURRENT_TASK=$((CURRENT_TASK + 1))
 mkdir -p ${VIM_INSTALL_DIR} >> ${INSTALL_LOG} 2>&1
@@ -164,12 +170,16 @@ for python_version in {2..3};do
     VIM_CONFIGURE=VIM_CONFIGURE_PYTHON${python_version}
     echo "${CURRENT_TASK}/${MAX_TASKS} Install vim with python ${python_version} support"
     CURRENT_TASK=$((CURRENT_TASK + 1))
+    echo export PATH=${!MINICONDA_BIN}:${PATH} >> ${INSTALL_LOG} 2>&1
     export PATH=${!MINICONDA_BIN}:${PATH} >> ${INSTALL_LOG} 2>&1
     cd ${VIM_CONFIG_DIR} >> ${INSTALL_LOG} 2>&1
+    sed -i 's/> 501/> 601/g' src/if_lua.c
+    echo ./configure --prefix=${!VIM_PREFIX} ${VIM_CONFIGURE_FLAGS} ${!VIM_CONFIGURE} >> ${INSTALL_LOG} 2>&1
     ./configure --prefix=${!VIM_PREFIX} ${VIM_CONFIGURE_FLAGS} ${!VIM_CONFIGURE} >> ${INSTALL_LOG} 2>&1
     make -j4 >> ${INSTALL_LOG} 2>&1
     make install >> ${INSTALL_LOG} 2>&1
     cd ${DOTFILES} >> ${INSTALL_LOG} 2>&1
+    echo export PATH=${OLD_PATH} >> ${INSTALL_LOG} 2>&1
     export PATH=${OLD_PATH} >> ${INSTALL_LOG} 2>&1
 done
 export LDFLAGS=''

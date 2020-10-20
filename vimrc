@@ -25,6 +25,9 @@ Plugin 'git@github.com:nathanaelkane/vim-indent-guides.git'
 Plugin 'git@github.com:dhruvasagar/vim-table-mode.git'
 " Smooth scrolling
 Plugin 'git@github.com:cskeeters/vim-smooth-scroll.git'
+" RST
+Bundle 'Rykka/riv.vim'
+Bundle 'Rykka/InstantRst'
 " You complete me
 "Plugin 'https://github.com/Valloric/YouCompleteMe.git'
 

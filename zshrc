@@ -31,8 +31,10 @@ fi
 # Check for dotfiles github updates
 if [[ -f ${UPDATE_ZSH_COUNT_FILE} ]]; then
 	update_count=$(cat ${UPDATE_ZSH_COUNT_FILE})
-else
-	update_count=1
+fi
+if [[ -z ${update_count} ]]
+then
+    update_count=1
 fi
 
 # Layout oh my zsh paths

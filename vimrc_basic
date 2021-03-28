@@ -29,6 +29,8 @@ set backspace=indent,eol,start
 
 " Highlight search
 set hlsearch
+" Search as you type
+set incsearch
 " Press Space to turn off highlighting and clear any message already displayed.
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 " Always split to the right or below
@@ -48,16 +50,16 @@ set showcmd
 set listchars=tab:>-,space:·,eol:✂︎
 set list
 " Color for special keys
-hi SpecialKey ctermfg=59
-hi NonText ctermfg=59
-hi CursorLineNr ctermbg=59 ctermfg=white
+hi SpecialKey ctermfg=gray
+hi NonText ctermfg=gray
+hi CursorLineNr ctermbg=gray ctermfg=white
 " redraw only when we need to.
 set lazyredraw
 " file format
 set fileformat=unix
 " Bar hinting for 80 chars
 set colorcolumn=81
-highlight ColorColumn ctermbg=darkgray
+highlight ColorColumn ctermbg=gray
 
 """"""""""""""""" Search things
 

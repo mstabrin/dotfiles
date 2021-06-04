@@ -98,3 +98,42 @@ if [[ ${DID_NO_UPDATE} = true ]];then
         source ${DEFAULT_SOURCE} ${CURRENT_SOURCE}
     fi
 fi
+
+# Load the ssh agent
+GOT_AGENT=0
+
+for FILE in $(find /tmp/ssh-* -type s -user ${LOGNAME} -name "agent.[0-9]*" 2>/dev/null)
+do
+    SOCK_PID=${FILE##*.}
+
+    PID=$(ps -fu${LOGNAME}|awk '/ssh-agent/ && ( $2=='${SOCK_PID}' || $3=='${SOCK_PID}' || $2=='${SOCK_PID}' +1 ) {print $2}')
+
+    SOCK_FILE=${FILE}
+
+    SSH_AUTH_SOCK=${SOCK_FILE}; export SSH_AUTH_SOCK;
+    SSH_AGENT_PID=${PID}; export SSH_AGENT_PID;
+
+    keys=$(ssh-add -L)
+    if [[ $? != 2 ]]
+    then
+        GOT_AGENT=1
+        echo "Agent pid ${PID}"
+        for key in $(find ${HOME}/.ssh -name '*id_*' -not -name '*.pub')
+        do
+            public_key=$(cat ${key}.pub | awk '{ print $2 }')
+            if ! echo "${keys}" | grep -q "${public_key}"
+            then
+                ssh-add ${key}
+            fi
+        done
+        break
+    fi
+    echo "Skipping pid ${PID}"
+
+done
+
+if [[ $GOT_AGENT = 0 ]]
+then
+    eval `ssh-agent`
+    ssh-add
+fi

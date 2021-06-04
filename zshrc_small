@@ -1,0 +1,33 @@
+# Layout oh my zsh paths
+export ZSH=${DOTFILES}/oh-my-zsh
+
+ZSH_THEME="my_afowler"
+ZSH_CUSTOM=${DOTFILES}/oh-my-zsh-custom
+
+# Disable syntax highlighting on clr subnodes
+if [[ ${HOSTNAME} =~ 'dn[0-9][0-9]' ]]; then
+    plugins=(
+    git
+    sudo
+    osx
+    )
+else
+    plugins=(
+    git
+    sudo
+    osx
+    zsh-syntax-highlighting
+    )
+fi
+
+# Oh my zsh settings
+source $ZSH/oh-my-zsh.sh 2>/dev/null
+
+# Load zsh related settings
+if [[ -d "${DOTFILES}/zshrc-settings" ]]; then
+	for file in ${DOTFILES}/zshrc-settings/*.zsh
+	do
+		source $file 2>/dev/null
+	done
+fi
+

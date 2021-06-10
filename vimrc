@@ -65,7 +65,7 @@ let g:indent_guides_auto_colors = 0
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_tab_guides = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=grey   ctermbg=grey
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=darkgrey
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=green
 
 """"""""""""""" Vim table
 "Markdown table mode

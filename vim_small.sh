@@ -1,0 +1,5 @@
+alias vim="/usr/bin/vim -u /home/stabrin/git/dotfiles/vimrc"
+alias vim.gtk3="/usr/bin/vim.gtk3 -u /home/stabrin/git/dotfiles/vimrc"
+alias vim.tiny="/usr/bin/vim.tiny -u /home/stabrin/git/dotfiles/vimrc"
+alias vimdiff="/usr/bin/vimdiff -u /home/stabrin/git/dotfiles/vimrc"
+alias vimtutor="/usr/bin/vimtutor -u /home/stabrin/git/dotfiles/vimrc"

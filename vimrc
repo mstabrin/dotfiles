@@ -97,26 +97,26 @@ let g:ms_per_line=5
 " use latex flavour for plaintex files
 let g:tex_flavor = "latex"
 
-" set some default options for my personal latexmk
-let g:vimtex_view_method = 'skim'
-let g:vimtex_compiler_latexmk={
-    \ 'options' : [
-    \   '-lualatex',
-    \   '-silent',
-    \   '-synctex=1',
-    \   '-interaction=nonstopmode',
-    \ ],
-    \ 'build_dir' : 'livepreview',
-    \}
-"let g:vimtex_quickfix_latexlog = {
-"    \ 'overfull': 0,
-"    \ 'underfull': 0,
-"    \ 'packages': {
-"    \   'default': 0,
-"    \  },
-"    \ }
-set updatetime=300
-"
+"" set some default options for my personal latexmk
+"let g:vimtex_view_method = 'skim'
+"let g:vimtex_compiler_latexmk={
+"    \ 'options' : [
+"    \   '-lualatex',
+"    \   '-silent',
+"    \   '-synctex=1',
+"    \   '-interaction=nonstopmode',
+"    \ ],
+"    \ 'build_dir' : 'livepreview',
+"    \}
+""let g:vimtex_quickfix_latexlog = {
+""    \ 'overfull': 0,
+""    \ 'underfull': 0,
+""    \ 'packages': {
+""    \   'default': 0,
+""    \  },
+""    \ }
+"set updatetime=300
+""
 """"""""""""""" Basic functions
 
 source ${DOTFILES}/vimrc_basic

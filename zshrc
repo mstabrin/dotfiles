@@ -76,21 +76,21 @@ if [[ -d "${DOTFILES}/zshrc-settings" ]]; then
 	done
 fi
 
-DID_NO_UPDATE=true
-if [[ $((${update_count} % 20)) == 0 ]]; then
-    echo $((${update_count}+1)) > ${UPDATE_ZSH_COUNT_FILE}
-    echo 'You did not check for updates for several logins: Do you want to check for updates? [y/n]: '
-    read input
-    if [[ $input == 'y' ]]; then
-        source ${UPDATE_ZSH_FILE}
-        source ${0} ${CURRENT_SOURCE}
-        DID_NO_UPDATE=false
-    else
-        echo 'Skip update'
-    fi
-else
-    echo $((${update_count}+1)) > ${UPDATE_ZSH_COUNT_FILE}
-fi
+#DID_NO_UPDATE=true
+#if [[ $((${update_count} % 20)) == 0 ]]; then
+#    echo $((${update_count}+1)) > ${UPDATE_ZSH_COUNT_FILE}
+#    echo 'You did not check for updates for several logins: Do you want to check for updates? [y/n]: '
+#    read input
+#    if [[ $input == 'y' ]]; then
+#        source ${UPDATE_ZSH_FILE}
+#        source ${0} ${CURRENT_SOURCE}
+#        DID_NO_UPDATE=false
+#    else
+#        echo 'Skip update'
+#    fi
+#else
+#    echo $((${update_count}+1)) > ${UPDATE_ZSH_COUNT_FILE}
+#fi
 
 # Source default
 if [[ ${DID_NO_UPDATE} = true ]];then
@@ -113,8 +113,8 @@ do
     SSH_AUTH_SOCK=${SOCK_FILE}; export SSH_AUTH_SOCK;
     SSH_AGENT_PID=${PID}; export SSH_AGENT_PID;
 
-    keys=$(ssh-add -L)
-    if [[ $? != 2 ]]
+    keys=$(ssh-add -L 2>/dev/null)
+    if [[ $? != 2 && -n ${PID} ]]
     then
         GOT_AGENT=1
         echo "Agent pid ${PID}"
@@ -128,12 +128,16 @@ do
         done
         break
     fi
-    echo "Skipping pid ${PID}"
+    #echo "Skipping pid ${PID}"
 
 done
 
-if [[ $GOT_AGENT = 0 ]]
+current_host=$(hostname -s)
+if [[ ${current_host} == m21003-lin || ${current_host} == markud-t460s ]]
 then
-    eval `ssh-agent`
-    ssh-add
+    if [[ $GOT_AGENT = 0 ]]
+    then
+        eval `ssh-agent`
+        ssh-add
+    fi
 fi

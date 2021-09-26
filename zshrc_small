@@ -61,7 +61,7 @@ do
         done
         break
     fi
-    echo "Skipping pid ${PID}"
+    #echo "Skipping pid ${PID}"
 
 done
 

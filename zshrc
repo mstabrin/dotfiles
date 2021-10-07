@@ -76,7 +76,7 @@ if [[ -d "${DOTFILES}/zshrc-settings" ]]; then
 	done
 fi
 
-#DID_NO_UPDATE=true
+DID_NO_UPDATE=true
 #if [[ $((${update_count} % 20)) == 0 ]]; then
 #    echo $((${update_count}+1)) > ${UPDATE_ZSH_COUNT_FILE}
 #    echo 'You did not check for updates for several logins: Do you want to check for updates? [y/n]: '

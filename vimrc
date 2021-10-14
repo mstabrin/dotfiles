@@ -29,6 +29,8 @@ Plugin 'https://github.com/cskeeters/vim-smooth-scroll.git'
 "Plugin 'https://github.com/Valloric/YouCompleteMe.git'
 " Vimtex
 Plugin 'https://github.com/lervag/vimtex.git'
+" QML highlighting
+Plugin 'peterhoeg/vim-qml'
 
 call vundle#end()
 

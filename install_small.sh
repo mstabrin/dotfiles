@@ -1,6 +1,11 @@
 # Variables
 export DOTFILES=$(dirname $(realpath ${0}))
-CURRENT_TIME=$(date -Is)
+if which gdate &>/dev/null
+then
+	CURRENT_TIME=$(gdate -Is)
+else
+	CURRENT_TIME=$(date -Is)
+fi
 
 VIMRC_FILE=${DOTFILES}/vimrc
 VIM_SOURCE_FILE=${DOTFILES}/vim_small.sh

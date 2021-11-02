@@ -35,7 +35,7 @@ fi
 # Load the ssh agent
 GOT_AGENT=0
 
-for FILE in $(find /tmp/ssh-* -type s -user ${LOGNAME} -name "agent.[0-9]*" 2>/dev/null)
+for FILE in $(find /tmp/ssh-* -type s -user ${LOGNAME} -name "agent.[0-9]*" 2>/dev/null) $(find /var/folders/w0/b0zq2yz53qggxbkdyxqmjrmh0000gp/T/ssh-* -type s -user ${LOGNAME} -name "agent.[0-9]*" 2>/dev/null)
 do
     SOCK_PID=${FILE##*.}
 

@@ -19,7 +19,8 @@ git submodule init
 git submodule update
 git submodule update
 
-vim -u ${VIMRC_FILE} +PluginInstall +"exec coc#util#install()" +qall
+vim -u ${VIMRC_FILE} +PluginInstall +qall
+vim -u ${VIMRC_FILE} +"exec coc#util#install()" +qall
 vim -u ${VIMRC_FILE} +"CocInstall coc-pyright coc-json coc-tsserver coc-yaml coc-sh coc-clangd" +qall
 
 mv ${VIM_SOURCE_FILE} ${VIM_SOURCE_BACKUP_FILE}

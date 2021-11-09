@@ -28,7 +28,7 @@ Plugin 'https://github.com/cskeeters/vim-smooth-scroll.git'
 " You complete me
 "Plugin 'https://github.com/Valloric/YouCompleteMe.git'
 " Vimtex
-" Plugin 'https://github.com/lervag/vimtex.git'
+Plugin 'https://github.com/lervag/vimtex.git'
 " QML highlighting
 Plugin 'peterhoeg/vim-qml'
 " coc.nvim
@@ -99,7 +99,7 @@ let g:ms_per_line=5
 
 """""""""""" VimTex setup
 " use latex flavour for plaintex files
-" let g:tex_flavor = "latex"
+let g:tex_flavor = "latex"
 
 "" set some default options for my personal latexmk
 "let g:vimtex_view_method = 'skim'

@@ -46,13 +46,13 @@ if [[ ${HOSTNAME} =~ 'dn[0-9][0-9]' ]]; then
     plugins=(
     git
     sudo
-    osx
+    macos
     )
 else
     plugins=(
     git
     sudo
-    osx
+    macos
     zsh-syntax-highlighting
     )
 fi

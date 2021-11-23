@@ -49,15 +49,11 @@ NCURSES_PREFIX_DIR=${NCURSES_INSTALL_DIR}/ncurses-${NCURSES_DOWNLOAD_VERSION}_in
 NCURSES_LIB=${NCURSES_PREFIX_DIR}/lib
 
 # Vim configure dependancys and flags
-MINICONDA_PYTHON2=${MINICONDA_INSTALL_DIR}/envs/python2
+MINICONDA_PYTHON2=${MINICONDA_ENV_DIR}/python2
 MINICONDA_PYTHON2_BIN=${MINICONDA_PYTHON2}/bin
-MINICONDA_PYTHON2_CONFIG=${MINICONDA_PYTHON2}/lib/python2.7/config
-MINICONDA_PYTHON3=${MINICONDA_INSTALL_DIR}/envs/python3.5
+MINICONDA_PYTHON3=${MINICONDA_ENV_DIR}/python3
 MINICONDA_PYTHON3_BIN=${MINICONDA_PYTHON3}/bin
-MINICONDA_PYTHON3_CONFIG=${MINICONDA_PYTHON3}/lib/python3.5/config-3.5m
 VIM_CONFIGURE_FLAGS="--with-features=huge --enable-rubyinterp --enable-cscope --enable-luainterp --with-tlib=ncurses"
-VIM_CONFIGURE_PYTHON2="--enable-pythoninterp --with-python-config-dir=${MINICONDA_PYTHON2_CONFIG}"
-VIM_CONFIGURE_PYTHON3="--enable-python3interp --with-python-config-dir=${MINICONDA_PYTHON3_CONFIG}"
 
 # Vim env source file
 VIM_SOURCE_FILE=${VIM_INSTALL_DIR}/vim.zsh
@@ -113,12 +109,14 @@ rm ${MINICONDA_DOWNLOAD_FILE} >> ${INSTALL_LOG} 2>&1
 # Install miniconda environments
 echo "${CURRENT_TASK}/${MAX_TASKS} Install python2"
 CURRENT_TASK=$((CURRENT_TASK + 1))
-echo ${MINICONDA_INSTALL_DIR}/bin/conda env create -f ${MINICONDA_ENV_DIR}/python2.yml >> ${INSTALL_LOG} 2>&1
-${MINICONDA_INSTALL_DIR}/bin/conda env create -f ${MINICONDA_ENV_DIR}/python2.yml >> ${INSTALL_LOG} 2>&1
+rm -rf ${MINICONDA_PYTHON2}
+echo ${MINICONDA_INSTALL_DIR}/bin/conda create -p ${MINICONDA_PYTHON2} python=2 -y >> ${INSTALL_LOG} 2>&1
+${MINICONDA_INSTALL_DIR}/bin/conda create -p ${MINICONDA_PYTHON2} python=2 -y >> ${INSTALL_LOG} 2>&1
 echo "${CURRENT_TASK}/${MAX_TASKS} Install python3"
 CURRENT_TASK=$((CURRENT_TASK + 1))
-echo ${MINICONDA_INSTALL_DIR}/bin/conda env create -f ${MINICONDA_ENV_DIR}/python3.5.yml >> ${INSTALL_LOG} 2>&1
-${MINICONDA_INSTALL_DIR}/bin/conda env create -f ${MINICONDA_ENV_DIR}/python3.5.yml >> ${INSTALL_LOG} 2>&1
+rm -rf ${MINICONDA_PYTHON3}
+echo ${MINICONDA_INSTALL_DIR}/bin/conda create -p ${MINICONDA_PYTHON3} python=3 -y >> ${INSTALL_LOG} 2>&1
+${MINICONDA_INSTALL_DIR}/bin/conda create -p ${MINICONDA_PYTHON3} python=3 -y >> ${INSTALL_LOG} 2>&1
 
 #-----------------------------------------
 #--------------INSTALL NCURSES------------
@@ -148,6 +146,10 @@ make install >> ${INSTALL_LOG} 2>&1
 #--------------INSTALL VIM----------------
 #-----------------------------------------
 
+MINICONDA_PYTHON2_CONFIG=$(ls -d ${MINICONDA_PYTHON2}/lib/python*/config*/ | head -n 1)
+MINICONDA_PYTHON3_CONFIG=$(ls -d ${MINICONDA_PYTHON3}/lib/python*/config-*/ | head -n 1)
+VIM_CONFIGURE_PYTHON2="--enable-pythoninterp --with-python-config-dir=${MINICONDA_PYTHON2_CONFIG}"
+VIM_CONFIGURE_PYTHON3="--enable-python3interp --with-python-config-dir=${MINICONDA_PYTHON3_CONFIG}"
 
 export LDFLAGS=" -L${NCURSES_LIB}"
 # Download and untar vim
@@ -220,8 +222,12 @@ echo "${CURRENT_TASK}/${MAX_TASKS} Install vim plugins"
 CURRENT_TASK=$((CURRENT_TASK + 1))
 ${VIM_PYTHON2_DIR}/bin/vim -u ${VIMRC_FILE} +PluginInstall +qall
 ${VIM_PYTHON2_DIR}/bin/vim -u ${VIMRC_FILE} +PluginUpdate +qall
+${VIM_PYTHON2_DIR}/bin/vim -u ${VIMRC_FILE} +"exec coc#util#install()" +qall
+${VIM_PYTHON2_DIR}/bin/vim -u ${VIMRC_FILE} +"CocInstall coc-pyright coc-json coc-tsserver coc-yaml coc-sh coc-clangd coc-vimtex coc-vimlsp" +qall
 ${VIM_PYTHON3_DIR}/bin/vim -u ${VIMRC_FILE} +PluginInstall +qall
 ${VIM_PYTHON3_DIR}/bin/vim -u ${VIMRC_FILE} +PluginUpdate +qall
+${VIM_PYTHON3_DIR}/bin/vim -u ${VIMRC_FILE} +"exec coc#util#install()" +qall
+${VIM_PYTHON3_DIR}/bin/vim -u ${VIMRC_FILE} +"CocInstall coc-pyright coc-json coc-tsserver coc-yaml coc-sh coc-clangd coc-vimtex coc-vimlsp" +qall
 
 #-----------------------------------------
 #--------------Create source file---------
@@ -235,6 +241,7 @@ fi
 echo 'CURRENT_ENV=${1}' >> ${LOCAL_FILE}
 echo 'export DOTFILES='"${DOTFILES}" >> ${LOCAL_FILE}
 echo 'source ${DOTFILES}/zshrc ${CURRENT_ENV}' >> ${LOCAL_FILE}
+echo "source ${HOME}/.zshrc_local" >> ${LOCAL_FILE}
 
 
 echo "Installation finished! Restart your terminal and type 'zsh'"

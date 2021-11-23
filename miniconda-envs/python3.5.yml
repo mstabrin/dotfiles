@@ -1,6 +1,7 @@
 name: python3.5
 channels: !!python/tuple
 - defaults
+- conda-forge
 dependencies:
 - python=3
 prefix: ${DOTFILES}/miniconda-install/envs/python3.5

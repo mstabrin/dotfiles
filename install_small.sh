@@ -36,5 +36,6 @@ cat << EOF >> ${LOCAL_FILE}
 export DOTFILES="${DOTFILES}"
 source ${VIM_SOURCE_FILE}
 source ${DOTFILES}/zshrc_small
+source ${HOME}/.zshrc_local
 EOF
 

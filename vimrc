@@ -32,7 +32,9 @@ Plugin 'https://github.com/lervag/vimtex.git'
 " QML highlighting
 Plugin 'peterhoeg/vim-qml'
 " coc.nvim
-Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+if executable("node")
+    Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+endif
 
 call vundle#end()
 
@@ -124,6 +126,7 @@ let g:tex_flavor = "latex"
 
 
 " coc.nvim
+if executable("node")
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
 set encoding=utf-8
@@ -291,6 +294,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " Prevent a bug from happening that the cursor is gone?
 let g:coc_disable_transparent_cursor = 1
+endif
 
 """"""""""""""" Basic functions
 

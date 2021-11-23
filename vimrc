@@ -289,6 +289,8 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" Prevent a bug from happening that the cursor is gone?
+let g:coc_disable_transparent_cursor = 1
 
 """"""""""""""" Basic functions
 

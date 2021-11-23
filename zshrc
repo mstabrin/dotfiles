@@ -57,6 +57,8 @@ else
     )
 fi
 
+ZSH_DISABLE_COMPFIX=true
+
 # Oh my zsh settings
 source $ZSH/oh-my-zsh.sh 2>/dev/null
 

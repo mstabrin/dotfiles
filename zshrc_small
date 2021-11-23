@@ -33,6 +33,10 @@ if [[ -d "${DOTFILES}/zshrc-settings" ]]; then
 	done
 fi
 
+if [[ ${HOSTNAME} != 'm21003-lin.mpi-dortmund.mpg.de' && ${HOSTNAME} != 'markud-t460s' ]]
+then
+	return 0
+fi
 
 # Load the ssh agent
 GOT_AGENT=0

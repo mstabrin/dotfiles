@@ -6,3 +6,4 @@ ncurses/*
 .*
 install.log
 vim_small.sh*
+miniconda-envs/*

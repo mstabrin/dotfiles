@@ -33,7 +33,7 @@ if [[ -d "${DOTFILES}/zshrc-settings" ]]; then
 	done
 fi
 
-if [[ ${HOSTNAME} != 'm21003-lin.mpi-dortmund.mpg.de' && ${HOSTNAME} != 'markud-t460s' ]]
+if [[ ${HOSTNAME} != 'm21003-lin.mpi-dortmund.mpg.de' && ${HOSTNAME} != 'markud-t460s' && $(hostname) != "MonsterMac.local" ]]
 then
 	return 0
 fi

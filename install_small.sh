@@ -32,6 +32,8 @@ done
 
 mv ${LOCAL_FILE} ${LOCAL_BACKUP_FILE}
 
+touch ${HOME}/.zshrc_local
+
 cat << EOF >> ${LOCAL_FILE}
 export DOTFILES="${DOTFILES}"
 source ${VIM_SOURCE_FILE}

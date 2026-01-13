@@ -28,9 +28,9 @@ Plugin 'https://github.com/cskeeters/vim-smooth-scroll.git'
 " You complete me
 "Plugin 'https://github.com/Valloric/YouCompleteMe.git'
 " Vimtex
-Plugin 'https://github.com/lervag/vimtex.git'
+" Plugin 'https://github.com/lervag/vimtex.git'
 " QML highlighting
-Plugin 'peterhoeg/vim-qml'
+" Plugin 'peterhoeg/vim-qml'
 " coc.nvim
 if executable("node")
     Plugin 'neoclide/coc.nvim', {'branch': 'release'}
@@ -157,14 +157,14 @@ else
   set signcolumn=yes
 endif
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"" Use tab for trigger completion with characters ahead and navigate.
+"" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+"" other plugin before putting this into your config.
+"inoremap <silent><expr> <TAB>
+"      \ pumvisible() ? "\<C-n>" :
+"      \ <SID>check_back_space() ? "\<TAB>" :
+"      \ coc#refresh()
+"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -296,7 +296,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 let g:coc_disable_transparent_cursor = 1
 endif
 
-""""""""""""""" Basic functions
+"""""""""""""" Basic functions
 
 
 source ${DOTFILES}/vimrc_basic
